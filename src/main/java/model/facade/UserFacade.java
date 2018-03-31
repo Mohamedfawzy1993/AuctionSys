@@ -1,7 +1,7 @@
 package model.facade;
 
 import model.dao.UserDao;
-import model.dto2.User;
+import model.dto.User;
 
 import java.util.List;
 

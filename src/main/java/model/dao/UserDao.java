@@ -1,6 +1,6 @@
 package model.dao;
 
-import model.dto2.User;
+import model.dto.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
