@@ -29,12 +29,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-    , @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId")
-    , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")
-    , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
-    , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
-    , @NamedQuery(name = "User.findByBalance", query = "SELECT u FROM User u WHERE u.balance = :balance")
-    , @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role")})
+    , @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = ?")
+    , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = ?")
+    , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = ?")
+    , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = ?")
+    , @NamedQuery(name = "User.findByBalance", query = "SELECT u FROM User u WHERE u.balance = ?")
+    , @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = ?")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -70,6 +70,14 @@ public class User implements Serializable {
     }
 
     public User(Integer userId, String username, String email, String password, double balance, String role) {
+        this.userId = userId;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.balance = balance;
+        this.role = role;
+    }
+    public User( String username, String email, String password, double balance, String role) {
         this.userId = userId;
         this.username = username;
         this.email = email;

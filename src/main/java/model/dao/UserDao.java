@@ -26,7 +26,8 @@ public class UserDao implements DaoInterface<User> {
 
     public List<User> selectByNamedQuery(String namedQuery, String value) {
        Query query = entityManager.createNamedQuery(namedQuery);
-       query.setParameter(0 , value);
+       if(value != null)
+           query.setParameter(1 , value);
        return query.getResultList();
     }
 

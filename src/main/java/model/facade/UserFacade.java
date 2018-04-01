@@ -15,10 +15,10 @@ public class UserFacade {
 
     public void test()
     {
-        List<User> userList = userDao.select("select u from User u");
+        List<User> userList = userDao.selectByNamedQuery("User.findByEmail" , "dd");
         for(User user : userList)
         {
-            System.out.println(user.getEmail());
+            System.out.println(user.getUserId());
         }
     }
 }
