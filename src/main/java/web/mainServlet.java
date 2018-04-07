@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.math.BigDecimal;
 
@@ -22,7 +21,10 @@ public class mainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        User user = testBean.getUser();
-        resp.getWriter().println(user == null ? "Not Found" : user.getEmail());
+//        User user = testBean.getUser();
+//        resp.getWriter().println(user == null ? "Not Found" : user.getEmail());
+
+        testBean.dollarToYen(new BigDecimal("100"));
+        System.out.println("Persisted");
     }
 }

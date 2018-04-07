@@ -5,11 +5,12 @@ import model.dto.User;
 import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Stateless(name = "ConvertCurrencyEJB")
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@Transactional
 public class TestBean {
 
     @PersistenceContext(unitName = "auctionJPA")
@@ -28,22 +29,19 @@ public class TestBean {
     public BigDecimal dollarToYen(BigDecimal dollar)
     {
 
-        User user = new User( "Mohamed" , "em@em.ed" , "e" , 2222.2 , "dd");
+        User user = new User( "Mohamedeee" , "em@em.ed" , "e" , 2222.2 , "dd");
         em.persist(user);
-//        em.flush();
-//        System.out.println("User ID IS : "+user.getUserId());
+
         return dollar.multiply(YEN_RATE).setScale(2 , BigDecimal.ROUND_UP);
 
     }
 
     public User getUser()
     {
-        List<User> userList = em.createQuery("select U from User U").getResultList();
-        if(userList != null && userList.size() > 0)
-        {
-            return userList.get(0);
-        }
-        return null;
+        System.out.println("Em is "+(em ==  null));
+        User userList = em.find(User.class , 1);
+        System.out.println("Query Done");
+        return userList;
     }
 
 }

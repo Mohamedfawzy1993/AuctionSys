@@ -7,5 +7,9 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
    <f:view>
       <h:outputLabel value="Hello, world"/>
+      <h:outputText value="#{bean.username}" />
+      <h:form>
+         <h:commandButton action="#{bean.setingUser}"/>
+      </h:form>
    </f:view>
 </html>
