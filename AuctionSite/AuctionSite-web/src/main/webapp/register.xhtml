@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+    <title>Title</title>
+</head>
+<body>
+<f:view>
+    <h:form>
+        Name : <h:inputText value="${registerBean.registeredUser.username}"/>
+        <br/>
+        Password : <h:inputText value="${registerBean.registeredUser.password}"/>
+        <br/>
+        Email : <h:inputText value="${registerBean.registeredUser.email}"/>
+        <br/>
+        Type  : <h:selectOneMenu value="#{registerBean.registeredUser.role}">
+            <f:selectItems value="#{registerBean.roles}" var="c" itemLabel="#{c}" itemValue="#{c}"/>
+            </h:selectOneMenu>
+            <br/>
+            <h:commandButton value="Submit" action="#{registerBean.saveUser}"/>
+    </h:form>
+</f:view>
+
+</body>
+</html>

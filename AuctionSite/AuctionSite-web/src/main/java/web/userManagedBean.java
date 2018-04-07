@@ -14,11 +14,7 @@ public class userManagedBean {
     @EJB
     private TestBean testBean;
 
-
-
     private String username;
-  
-
 
     public userManagedBean() {
     }
