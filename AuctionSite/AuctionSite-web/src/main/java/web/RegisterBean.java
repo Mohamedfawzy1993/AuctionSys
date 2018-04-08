@@ -1,7 +1,7 @@
 package web;
 
 
-import model.dto.User;
+import model.entities.Users;
 import controller.RegistrationSessionBean;
 
 import javax.enterprise.context.RequestScoped;
@@ -18,12 +18,12 @@ public class RegisterBean {
     @Inject
     private RegistrationSessionBean registrationSessionBean;
 
-    private User registeredUser;
+    private Users registeredUser;
     private String registerResult;
     private List<String> roles;
 
     public RegisterBean() {
-        this.registeredUser = new User();
+        this.registeredUser = new Users();
         roles = new ArrayList<>();
         roles.add("Supplier");
         roles.add("Seller");
@@ -37,11 +37,11 @@ public class RegisterBean {
         this.registerResult = registerResult;
     }
 
-    public User getRegisteredUser() {
+    public Users getRegisteredUser() {
         return registeredUser;
     }
 
-    public void setRegisteredUser(User registeredUser) {
+    public void setRegisteredUser(Users registeredUser) {
         this.registeredUser = registeredUser;
     }
 

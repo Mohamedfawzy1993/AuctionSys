@@ -2,7 +2,7 @@ package controller;
 
 
 import model.dao.UserDao;
-import model.dto.User;
+import model.entities.Users;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -19,18 +19,18 @@ public class LoginSessionBean implements Serializable {
     public LoginSessionBean() {
     }
 
-    public User getUserData(String email) {
+    public Users getUserData(String email) {
         return userDao.getUserByEmail(email);
     }
 
-    public User VerifyUser(String email, String password) {
+    public Users VerifyUser(String email, String password) {
         email = email.trim();
-        User user = getUserData(email);
-        if (user != null)
+        Users Users = getUserData(email);
+        if (Users != null)
         {
-            boolean result = user.getPassword().equals(password);
-            user = result ? user : null;
+            boolean result = Users.getPassword().equals(password);
+            Users = result ? Users : null;
         }
-        return user;
+        return Users;
     }
 }

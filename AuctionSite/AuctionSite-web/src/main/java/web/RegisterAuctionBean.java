@@ -1,9 +1,8 @@
 package web;
 
 
-import model.dto.Auction;
-import model.dto.Product;
-import model.dto.UserSellProduct;
+import model.entities.Auction;
+import model.entities.Product;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -18,11 +17,9 @@ public class RegisterAuctionBean implements Serializable{
 
     private Auction auction;
     private List<Product> products;
-    private List<UserSellProduct> userSellProducts;
 
     public RegisterAuctionBean() {
         products = new ArrayList<>();
-        userSellProducts = new ArrayList<>();
     }
 
     public Auction getAuction() {
@@ -31,10 +28,5 @@ public class RegisterAuctionBean implements Serializable{
 
     public void setAuction(Auction auction) {
         this.auction = auction;
-    }
-
-    public void printIT()
-    {
-        System.out.println(auction.getAuctionDesc());
     }
 }

@@ -2,7 +2,7 @@ package controller;
 
 
 import model.dao.UserDao;
-import model.dto.User;
+import model.entities.Users;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -15,32 +15,32 @@ public class RegistrationSessionBean implements Serializable {
 
     @Inject
     private UserDao userDao;
-    private User user;
+    private Users Users;
 
     public RegistrationSessionBean() {
     }
 
-    public User getUser() {
-        return user;
+    public Users getUser() {
+        return Users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Users Users) {
+        this.Users = Users;
     }
 
     public boolean isExist(String email) {
-        User user = userDao.getUserByEmail(email);
-        return user != null;
+        Users Users = userDao.getUserByEmail(email);
+        return Users != null;
     }
 
     public boolean addUserToDatabase() {
         boolean result = false;
-        if (user != null) {
-            result = isExist(user.getEmail());
+        if (Users != null) {
+            result = isExist(Users.getEmail());
             if (result) {
                 result = false;
             } else {
-                userDao.create(user);
+                userDao.create(Users);
                 result = true;
             }
         }

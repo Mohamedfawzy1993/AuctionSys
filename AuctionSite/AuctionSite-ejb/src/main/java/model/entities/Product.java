@@ -10,9 +10,6 @@ public class Product {
     private String productImg;
     private double sellStartPrice;
     private int count;
-    private int productCategoryCategoryId;
-    private int usersUserId;
-    private int auctionAuctionId;
     private ProductCategory productCategoryByProductCategoryCategoryId;
     private Users usersByUsersUserId;
     private Auction auctionByAuctionAuctionId;
@@ -69,35 +66,7 @@ public class Product {
         this.count = count;
     }
 
-    @Basic
-    @Column(name = "product_category_category_id")
-    public int getProductCategoryCategoryId() {
-        return productCategoryCategoryId;
-    }
 
-    public void setProductCategoryCategoryId(int productCategoryCategoryId) {
-        this.productCategoryCategoryId = productCategoryCategoryId;
-    }
-
-    @Basic
-    @Column(name = "users_user_id")
-    public int getUsersUserId() {
-        return usersUserId;
-    }
-
-    public void setUsersUserId(int usersUserId) {
-        this.usersUserId = usersUserId;
-    }
-
-    @Basic
-    @Column(name = "auction_auction_id")
-    public int getAuctionAuctionId() {
-        return auctionAuctionId;
-    }
-
-    public void setAuctionAuctionId(int auctionAuctionId) {
-        this.auctionAuctionId = auctionAuctionId;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -109,9 +78,7 @@ public class Product {
         if (productId != product.productId) return false;
         if (Double.compare(product.sellStartPrice, sellStartPrice) != 0) return false;
         if (count != product.count) return false;
-        if (productCategoryCategoryId != product.productCategoryCategoryId) return false;
-        if (usersUserId != product.usersUserId) return false;
-        if (auctionAuctionId != product.auctionAuctionId) return false;
+
         if (productName != null ? !productName.equals(product.productName) : product.productName != null) return false;
         if (productImg != null ? !productImg.equals(product.productImg) : product.productImg != null) return false;
 
@@ -128,9 +95,7 @@ public class Product {
         temp = Double.doubleToLongBits(sellStartPrice);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + count;
-        result = 31 * result + productCategoryCategoryId;
-        result = 31 * result + usersUserId;
-        result = 31 * result + auctionAuctionId;
+
         return result;
     }
 

@@ -1,6 +1,6 @@
 package model.dao;
 
-import model.dto.Auction;
+import model.entities.Auction;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

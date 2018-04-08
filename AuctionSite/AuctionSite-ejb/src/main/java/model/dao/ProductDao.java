@@ -1,6 +1,6 @@
 package model.dao;
 
-import model.dto.Product;
+import model.entities.Product;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

@@ -1,6 +1,6 @@
 package web;
 
-import model.dto.User;
+import model.entities.Users;
 import controller.LoginSessionBean;
 
 import javax.enterprise.context.SessionScoped;
@@ -16,7 +16,7 @@ public class LoginBean implements Serializable{
     private LoginSessionBean loginSessionBean;
     private String email;
     private String password;
-    private User user;
+    private Users Users;
 
     public LoginBean() {
 
@@ -38,22 +38,22 @@ public class LoginBean implements Serializable{
         this.password = password;
     }
 
-    public User getUser() {
-        return user;
+    public Users getUser() {
+        return Users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Users Users) {
+        this.Users = Users;
     }
 
     public String verifyUser()
     {
-        user = loginSessionBean.VerifyUser(email , password);
-        if(user != null)
+        Users = loginSessionBean.VerifyUser(email , password);
+        if(Users != null)
         {
-            System.out.println(user.getEmail());
-            System.out.println(user.getPassword());
-            System.out.println(user.getUsername());
+            System.out.println(Users.getEmail());
+            System.out.println(Users.getPassword());
+            System.out.println(Users.getUsername());
         }
         return null;
     }
