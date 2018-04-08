@@ -11,6 +11,5 @@
         <class>model.dto.User</class>
         <class>model.dto.UserBidProduct</class>
         <class>model.dto.UserSellProduct</class>
- 
     </persistence-unit>
 </persistence>

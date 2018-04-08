@@ -48,6 +48,10 @@ public class UserSellProduct implements Serializable {
     @JoinColumn(name = "user_user_id", referencedColumnName = "user_id")
     @ManyToOne(optional = false)
     private User userUserId;
+    @Basic(optional = false)
+    @Column(name = "count")
+    private double count;
+
 
     public UserSellProduct() {
     }
@@ -99,6 +103,15 @@ public class UserSellProduct implements Serializable {
 
     public void setUserUserId(User userUserId) {
         this.userUserId = userUserId;
+    }
+
+
+    public double getCount() {
+        return count;
+    }
+
+    public void setCount(double count) {
+        this.count = count;
     }
 
     @Override

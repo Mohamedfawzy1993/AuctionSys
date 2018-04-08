@@ -25,18 +25,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
  * @author Muhammed Fawzy
  */
 @Entity
 @Table(name = "auction")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Auction.findAll", query = "SELECT a FROM Auction a")
-    , @NamedQuery(name = "Auction.findByAuctionId", query = "SELECT a FROM Auction a WHERE a.auctionId = :auctionId")
-    , @NamedQuery(name = "Auction.findByAuctionStart", query = "SELECT a FROM Auction a WHERE a.auctionStart = :auctionStart")
-    , @NamedQuery(name = "Auction.findByAuctionEnd", query = "SELECT a FROM Auction a WHERE a.auctionEnd = :auctionEnd")
-    , @NamedQuery(name = "Auction.findByLastBidTime", query = "SELECT a FROM Auction a WHERE a.lastBidTime = :lastBidTime")})
+        @NamedQuery(name = "Auction.findAll", query = "SELECT a FROM Auction a")
+        , @NamedQuery(name = "Auction.findByAuctionId", query = "SELECT a FROM Auction a WHERE a.auctionId = :auctionId")
+        , @NamedQuery(name = "Auction.findByAuctionStart", query = "SELECT a FROM Auction a WHERE a.auctionStart = :auctionStart")
+        , @NamedQuery(name = "Auction.findByAuctionEnd", query = "SELECT a FROM Auction a WHERE a.auctionEnd = :auctionEnd")
+        , @NamedQuery(name = "Auction.findByLastBidTime", query = "SELECT a FROM Auction a WHERE a.lastBidTime = :lastBidTime")})
 public class Auction implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,6 +43,12 @@ public class Auction implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "auction_id")
     private Integer auctionId;
+    @Basic(optional = false)
+    @Column(name = "auctiontitle")
+    private String auctionTitle;
+    @Basic(optional = true)
+    @Column(name = "auctiondescription")
+    private String auctionDesc;
     @Basic(optional = false)
     @Column(name = "auction_start")
     @Temporal(TemporalType.TIMESTAMP)
@@ -59,6 +64,9 @@ public class Auction implements Serializable {
     private List<UserSellProduct> userSellProductList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "auctionAuctionId")
     private List<UserBidProduct> userBidProductList;
+    @Basic
+    @Column(name = "active")
+    private boolean active;
 
     public Auction() {
     }
@@ -105,6 +113,14 @@ public class Auction implements Serializable {
         this.lastBidTime = lastBidTime;
     }
 
+    public String getAuctionTitle() { return auctionTitle; }
+
+    public void setAuctionTitle(String auctionTitle) { this.auctionTitle = auctionTitle; }
+
+    public String getAuctionDesc() { return auctionDesc; }
+
+    public void setAuctionDesc(String auctionDesc) { this.auctionDesc = auctionDesc; }
+
     @XmlTransient
     public List<UserSellProduct> getUserSellProductList() {
         return userSellProductList;
@@ -121,6 +137,14 @@ public class Auction implements Serializable {
 
     public void setUserBidProductList(List<UserBidProduct> userBidProductList) {
         this.userBidProductList = userBidProductList;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override
@@ -147,5 +171,5 @@ public class Auction implements Serializable {
     public String toString() {
         return "dao.Auction[ auctionId=" + auctionId + " ]";
     }
-    
+
 }

@@ -1,23 +1,22 @@
 package web;
 
 
-import controller.beans.UserDao;
 import model.dto.User;
+import controller.RegistrationSessionBean;
 
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
 
-@ManagedBean(name = "registerBean")
+@Named(value = "registerBean")
 @RequestScoped
 public class RegisterBean {
 
 
     @Inject
-    private UserDao userDao;
+    private RegistrationSessionBean registrationSessionBean;
 
     private User registeredUser;
     private String registerResult;
@@ -61,6 +60,8 @@ public class RegisterBean {
         System.out.println(registeredUser.getEmail());
         System.out.println(registeredUser.getRole());
         registeredUser.setBalance(100.0);
-        userDao.create(registeredUser);
+        registrationSessionBean.setUser(registeredUser);
+        registrationSessionBean.addUserToDatabase();
+
     }
 }

@@ -1,4 +1,4 @@
-package controller.beans;
+package model.dao;
 
 import model.dto.User;
 

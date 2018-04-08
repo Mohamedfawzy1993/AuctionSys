@@ -43,6 +43,9 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "product_name")
     private String productName;
+    @Basic
+    @Column(name = "product_img")
+    private String productImg;
     @JoinColumn(name = "product_category_category_id", referencedColumnName = "category_id")
     @ManyToOne(optional = false)
     private ProductCategory productCategoryCategoryId;
@@ -103,6 +106,14 @@ public class Product implements Serializable {
 
     public void setUserBidProductList(List<UserBidProduct> userBidProductList) {
         this.userBidProductList = userBidProductList;
+    }
+
+    public String getProductImg() {
+        return productImg;
+    }
+
+    public void setProductImg(String productImg) {
+        this.productImg = productImg;
     }
 
     @Override

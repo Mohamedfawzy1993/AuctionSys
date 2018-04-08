@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package web.ejbProject;
+package controller;
 
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
