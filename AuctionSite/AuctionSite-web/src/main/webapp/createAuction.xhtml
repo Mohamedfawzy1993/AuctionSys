@@ -15,7 +15,22 @@
         <br/>
         <h:inputText pt:placeholder="Auction Description" value="#{registerAuctionBean.auction.auctionDesc}"/>
         <br/>
-        <h:dataTable value="#{}"
+        <h:dataTable value="#{registerAuctionBean.products}" var="product">
+            <f:facet name="header">
+                <tr>
+                    <td>Product Name</td>
+                    <td>Product Image</td>
+                    <td>Product Min Price</td>
+                    <td>Product Count</td>
+                    <td>Product Category</td>
+                </tr>
+            </f:facet>
+            <h:column><h:inputText value="#{product.productproductid.productName}" pt:placeholder="Product Name"/></h:column>
+            <h:column><h:inputText value="#{product.productproductid.productImg}" pt:placeholder="Product Image"/></h:column>
+            <h:column><h:inputText value="#{product.sellStartPrice}" pt:placeholder="Product Min Price"/></h:column>
+            <h:column><h:inputText value="#{product.count}" pt:placeholder="Product Count"/></h:column>
+            <!--<h:column><h:inputText value="#{product.}" pt:placeholder="Product Name"/></h:column>-->
+        </h:dataTable>
         <h:commandButton action="#{registerAuctionBean.printIT}"/>
     </h:form>
 </f:view>
