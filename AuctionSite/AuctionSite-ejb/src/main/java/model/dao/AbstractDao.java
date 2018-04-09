@@ -1,8 +1,10 @@
 package model.dao;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Transactional
 public abstract class AbstractDao<T> {
 
     private Class<T> entityType;

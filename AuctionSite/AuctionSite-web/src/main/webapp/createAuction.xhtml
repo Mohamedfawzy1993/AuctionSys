@@ -10,30 +10,49 @@
 </head>
 <body>
 <f:view>
+    <f:subview id="auctionData">
     <h:form>
-        <h:inputText pt:placeholder="Auction Title" value="#{registerAuctionBean.auction.auctionTitle}"/>
+        <h:inputText value="#{registerAuctionBean.auction.auctiontitle}"/>
         <br/>
-        <h:inputText pt:placeholder="Auction Description" value="#{registerAuctionBean.auction.auctionDesc}"/>
+        <h:inputText value="#{registerAuctionBean.auction.auctiondescription}"/>
         <br/>
-        <h:dataTable value="#{registerAuctionBean.products}" var="product">
+        <h:inputText  pt:type="number" pt:max="24" pt:min="1" value="#{registerAuctionBean.duration}">
+        </h:inputText>
+        <h:commandButton value="Add Auction" action="#{registerAuctionBean.createAuction}"/>
+    </h:form>
+    </f:subview>
+    <f:subview id="datamodel">
+    <h:form>
+        <h:dataTable value="#{registerAuctionBean.productsModel}" var="product">
             <f:facet name="header">
                 <tr>
                     <td>Product Name</td>
-                    <td>Product Image</td>
-                    <td>Product Min Price</td>
+                    <td>Start Price</td>
                     <td>Product Count</td>
-                    <td>Product Category</td>
+                    <td>Delete</td>
                 </tr>
             </f:facet>
-            <h:column><h:inputText value="#{product.productproductid.productName}" pt:placeholder="Product Name"/></h:column>
-            <h:column><h:inputText value="#{product.productproductid.productImg}" pt:placeholder="Product Image"/></h:column>
-            <h:column><h:inputText value="#{product.sellStartPrice}" pt:placeholder="Product Min Price"/></h:column>
-            <h:column><h:inputText value="#{product.count}" pt:placeholder="Product Count"/></h:column>
-            <!--<h:column><h:inputText value="#{product.}" pt:placeholder="Product Name"/></h:column>-->
+            <h:column><h:inputText value="#{product.productName}"/> </h:column>
+            <h:column><h:inputText value="#{product.sellStartPrice}"/> </h:column>
+            <h:column><h:inputText value="#{product.count}"/></h:column>
+            <h:column><h:commandButton value="Delete"
+                                       action="#{registerAuctionBean.removeProduct}"/></h:column>
         </h:dataTable>
-        <h:commandButton action="#{registerAuctionBean.printIT}"/>
     </h:form>
+</f:subview>
+    <f:subview id="addmodel">
+        <h:form>
+            <h:inputText id="prodname" value="#{registerAuctionBean.product.productName}"
+                         pt:placeholder="Product Name"/>
+            <h:inputText id="sellprice" value="#{registerAuctionBean.product.sellStartPrice}"
+                         pt:placeholder="Product Start Price"/>
+            <h:inputText id="count" value="#{registerAuctionBean.product.count}" pt:placeholder="Product Count"/>
+            <h:commandButton value="Add Product" action="#{registerAuctionBean.addProduct}"/>
+        </h:form>
+    </f:subview>
+
 </f:view>
+
 
 </body>
 </html>
