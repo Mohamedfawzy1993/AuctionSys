@@ -86,4 +86,14 @@ public class UserBidProduct {
     public void setUsersByUserUserId(Users usersByUserUserId) {
         this.usersByUserUserId = usersByUserUserId;
     }
+
+    @Override
+    public String toString() {
+        return "UserBidProduct{" +
+                "userBidId=" + userBidId +
+                ", lastBid=" + lastBid +
+                ", productByProductProductId=" + productByProductProductId.getProductName() +
+                ", usersByUserUserId=" + usersByUserUserId.getEmail() +
+                '}';
+    }
 }

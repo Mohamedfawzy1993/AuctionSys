@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@Table(name = "users", schema = "auctionSys", catalog = "")
 public class Users {
     private int userId;
     private String username;

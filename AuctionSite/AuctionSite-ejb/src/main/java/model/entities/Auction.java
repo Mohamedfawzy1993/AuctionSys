@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.Collection;
 
 @Entity
+@Table(name = "auction", schema = "auctionSys")
 public class Auction {
     private int auctionId;
     private String auctiontitle;
@@ -137,5 +138,17 @@ public class Auction {
 
     public void setUserBidProductsByAuctionId(Collection<UserBidProduct> userBidProductsByAuctionId) {
         this.userBidProductsByAuctionId = userBidProductsByAuctionId;
+    }
+
+    @Override
+    public String toString() {
+        return "Auction{" +
+                "auctionId=" + auctionId +
+                ", auctiontitle='" + auctiontitle + '\'' +
+                ", auctiondescription='" + auctiondescription + '\'' +
+                ", auctionStart=" + auctionStart +
+                ", auctionEnd=" + auctionEnd +
+                ", lastBidTime=" + lastBidTime +
+                '}';
     }
 }

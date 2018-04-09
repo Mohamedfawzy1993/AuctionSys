@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@Table(name = "Product", schema = "auctionSys", catalog = "")
 public class Product {
     private int productId;
     private String productName;
@@ -137,4 +138,15 @@ public class Product {
     public void setUserBidProductsByProductId(Collection<UserBidProduct> userBidProductsByProductId) {
         this.userBidProductsByProductId = userBidProductsByProductId;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", sellStartPrice=" + sellStartPrice +
+                ", count=" + count +
+                '}';
+    }
 }
+
