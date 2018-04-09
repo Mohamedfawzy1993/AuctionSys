@@ -5,10 +5,11 @@ import model.entities.Auction;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 @Stateless
+@Transactional
 public class AuctionDao extends AbstractDao<Auction> {
-
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -17,7 +18,5 @@ public class AuctionDao extends AbstractDao<Auction> {
     protected EntityManager getEntityManager() {
         return entityManager;
     }
-
-
 
 }

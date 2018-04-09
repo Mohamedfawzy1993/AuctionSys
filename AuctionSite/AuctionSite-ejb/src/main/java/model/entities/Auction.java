@@ -1,25 +1,29 @@
 package model.entities;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Date;
 
 @Entity
-public class Auction {
+@Table(schema = "auctionsys")
+public class Auction implements Serializable{
     private int auctionId;
     private String auctiontitle;
     private String auctiondescription;
-    private Timestamp auctionStart;
-    private Timestamp auctionEnd;
-    private Timestamp lastBidTime;
-    private byte active;
+    private LocalDateTime auctionStart;
+    private LocalDateTime auctionEnd;
+    private LocalDateTime lastBidTime;
+    private boolean active;
     private Collection<Product> productsByAuctionId;
     private Collection<UserBidProduct> userBidProductsByAuctionId;
 
     @Id
     @Column(name = "auction_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     public int getAuctionId() {
         return auctionId;
     }
@@ -48,43 +52,46 @@ public class Auction {
         this.auctiondescription = auctiondescription;
     }
 
-    @Basic
+    @Basic(optional = true)
     @Column(name = "auction_start")
-    public Timestamp getAuctionStart() {
+    @Convert(converter = LocalDateTimeAttributeConverter.class)
+    public LocalDateTime getAuctionStart() {
         return auctionStart;
     }
 
-    public void setAuctionStart(Timestamp auctionStart) {
+    public void setAuctionStart(LocalDateTime auctionStart) {
         this.auctionStart = auctionStart;
     }
 
-    @Basic
+    @Basic(optional = true)
     @Column(name = "auction_end")
-    public Timestamp getAuctionEnd() {
+    @Convert(converter = LocalDateTimeAttributeConverter.class)
+    public LocalDateTime getAuctionEnd() {
         return auctionEnd;
     }
 
-    public void setAuctionEnd(Timestamp auctionEnd) {
+    public void setAuctionEnd(LocalDateTime auctionEnd) {
         this.auctionEnd = auctionEnd;
     }
 
-    @Basic
+    @Basic(optional = true)
     @Column(name = "last_bid_time")
-    public Timestamp getLastBidTime() {
+    @Convert(converter = LocalDateTimeAttributeConverter.class)
+    public LocalDateTime getLastBidTime() {
         return lastBidTime;
     }
 
-    public void setLastBidTime(Timestamp lastBidTime) {
+    public void setLastBidTime(LocalDateTime lastBidTime) {
         this.lastBidTime = lastBidTime;
     }
 
     @Basic
     @Column(name = "active")
-    public byte getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(byte active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
@@ -117,7 +124,7 @@ public class Auction {
         result = 31 * result + (auctionStart != null ? auctionStart.hashCode() : 0);
         result = 31 * result + (auctionEnd != null ? auctionEnd.hashCode() : 0);
         result = 31 * result + (lastBidTime != null ? lastBidTime.hashCode() : 0);
-        result = 31 * result + (int) active;
+//        result = 31 * result + (int) active;
         return result;
     }
 

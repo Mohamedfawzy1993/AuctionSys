@@ -11,4 +11,6 @@
     <module>AuctionSite-web</module>
     <module>AuctionSite-ejb</module>
   </modules>
+
+
 </project>

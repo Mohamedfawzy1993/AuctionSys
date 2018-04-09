@@ -2,23 +2,14 @@
 
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="auctionJPA" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>auctionsys1</jta-data-source>
-        <class>model.entities.Product</class>
-        <class>model.entities.Auction</class>
-        <class>model.entities.ProductCategory</class>
-        <class>model.entities.UserBidProduct</class>
-        <class>model.entities.Users</class>
         <properties>
-            <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/auctionSys"/>
-            <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/auctionSys"/>
-            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306/auctionSys"/>
-            <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
-            <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/auctionSys"/>
-            <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name ="hibernate.show_sql" value = "true" />
+            <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
         </properties>
     </persistence-unit>
 </persistence>

@@ -16,6 +16,7 @@ public class LoginBean implements Serializable{
     private LoginSessionBean loginSessionBean;
     private String email;
     private String password;
+
     private Users Users;
 
     public LoginBean() {
