@@ -1,6 +1,6 @@
 package model.entities;
 
-import org.hibernate.annotations.CreationTimestamp;
+//import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -128,7 +128,7 @@ public class Auction implements Serializable{
         return result;
     }
 
-    @OneToMany(mappedBy = "auctionByAuctionAuctionId")
+    @OneToMany(mappedBy = "auctionByAuctionAuctionId",fetch = FetchType.EAGER)
     public Collection<Product> getProductsByAuctionId() {
         return productsByAuctionId;
     }

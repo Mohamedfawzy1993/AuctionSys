@@ -55,6 +55,7 @@ public class LoginBean implements Serializable{
             System.out.println(Users.getEmail());
             System.out.println(Users.getPassword());
             System.out.println(Users.getUsername());
+        return "home";
         }
         return null;
     }
