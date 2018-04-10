@@ -28,21 +28,40 @@ public class CreateAuctionSessionBean implements Serializable {
     private Users user;
     private List<Product> products;
 
-    public CreateAuctionSessionBean() { }
+    public CreateAuctionSessionBean() {
+    }
 
-    public Auction getAuction() { return auction; }
+    public CreateAuctionSessionBean(Auction auction, Users user, List<Product> products) {
+        this.auction = auction;
+        this.user = user;
+        this.products = products;
+    }
+
+
+    public Auction getAuction() {
+        return auction;
+    }
 
     public void setAuction(Auction auction) {
+
         this.auction = auction;
     }
 
-    public void setProducts(List<Product> products) { this.products = products; }
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
-    public List<Product> getProducts() { return products; }
+    public List<Product> getProducts() {
+        return products;
+    }
 
-    public Users getUser() { return user; }
+    public Users getUser() {
+        return user;
+    }
 
-    public void setUser(Users user) { this.user = user; }
+    public void setUser(Users user) {
+        this.user = user;
+    }
 
     public boolean createNewAuction() {
 
@@ -73,6 +92,5 @@ public class CreateAuctionSessionBean implements Serializable {
         }
         return result;
     }
-
 
 }
