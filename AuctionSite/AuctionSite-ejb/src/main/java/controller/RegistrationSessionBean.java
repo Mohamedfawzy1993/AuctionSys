@@ -13,8 +13,8 @@ import java.io.Serializable;
 @LocalBean
 public class RegistrationSessionBean implements Serializable {
 
-    @Inject
-    private UserDao userDao;
+    @Inject private UserDao userDao;
+
     private Users Users;
 
     public RegistrationSessionBean() {

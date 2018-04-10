@@ -1,8 +1,10 @@
 package controller;
 
 import model.dao.AuctionDao;
+import model.dao.ProductDao;
 import model.entities.Auction;
 import model.entities.Product;
+import model.entities.Users;
 
 import javax.ejb.Local;
 import javax.ejb.LocalBean;
@@ -10,8 +12,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Date;
+
 import java.util.List;
 
 @Stateless
@@ -20,42 +21,57 @@ public class CreateAuctionSessionBean implements Serializable {
 
     @Inject
     private AuctionDao auctionDao;
+    @Inject
+    private ProductDao productDao;
 
     private Auction auction;
+    private Users user;
+    private List<Product> products;
 
+    public CreateAuctionSessionBean() { }
 
-
-    public CreateAuctionSessionBean() {
-    }
-
-    public Auction getAuction() {
-        return auction;
-    }
+    public Auction getAuction() { return auction; }
 
     public void setAuction(Auction auction) {
         this.auction = auction;
     }
 
-    public void createNewAuction()
-    {
+    public void setProducts(List<Product> products) { this.products = products; }
 
+    public List<Product> getProducts() { return products; }
 
-//        auction = new Auction();
-//        System.out.println("After !!");
-//        auction.setAuctiontitle("Title");
-//        auction.setAuctiondescription("desc");
-//        String strDatewithTime = "2015-08-04T10:11:30";
-//
-//        LocalDateTime aLDT = LocalDateTime.parse(strDatewithTime);
-//        String loca = LocalDateTime.now().toString().split("\\.")[0];
-//        LocalDateTime loc = LocalDateTime.parse(loca);
-//        System.out.println("Date is :"+ loc.toString());
-//
-//        auction.setAuctionStart(loc);
-//        auction.setAuctionEnd(loc.plusHours(24));
-//        System.out.println("Before!!");
-//        auction.setActive(true);
-//        auctionDao.create(auction);
+    public Users getUser() { return user; }
+
+    public void setUser(Users user) { this.user = user; }
+
+    public boolean createNewAuction() {
+
+        if (user == null || auction == null || products == null) {
+            return false;
+        }
+
+        boolean persistResult = createProducts();
+        if (persistResult) {
+            auctionDao.create(auction);
+            persistResult = true;
+        } else {
+            persistResult = false;
+        }
+        return persistResult;
+    }
+
+    private boolean createProducts() {
+        boolean result = false;
+        for (Product product : products) {
+            if (product != null) {
+                product.setUsersByUsersUserId(user);
+                productDao.create(product);
+                result = true;
+            } else {
+                return false;
+            }
+        }
+        return result;
     }
 
 
