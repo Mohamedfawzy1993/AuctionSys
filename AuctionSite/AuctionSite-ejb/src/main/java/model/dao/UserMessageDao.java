@@ -26,16 +26,17 @@ public class UserMessageDao extends AbstractDao<UserMessage> {
 
     public List<UserMessage> getMessagesOfUser(Users user) {
         List<UserMessage> userBidProductList = null;
-        Query query = getEntityManager().createQuery("select m from UserMessage m where m.user =  :user");
+        Query query = getEntityManager().createQuery("select m from UserMessage m where m.user = :user and m.active = true ");
         query.setParameter("user", user);
         userBidProductList = query.getResultList();
         return userBidProductList;
     }
 
     public void deleteMessagesOfUser(Users user) {
-        Query query = getEntityManager().createQuery("delete from UserMessage m where m.user=:user");
+        Query query = getEntityManager().createQuery("update UserMessage m set m.active = false where m.user = :user");
         query.setParameter("user", user);
-        query.getResultList();
+        query.executeUpdate();
+
     }
 
 }

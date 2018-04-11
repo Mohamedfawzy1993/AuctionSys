@@ -1,12 +1,9 @@
 package web;
 
 import controller.UserMessageController;
-import model.entities.Auction;
-import model.entities.UserBidProduct;
 import model.entities.UserMessage;
 import model.entities.Users;
 import controller.LoginSessionBean;
-
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -125,7 +122,7 @@ public class LoginBean implements Serializable {
                 System.out.println(userMessages);
             }
         }
-//        userMessageController.deleteMessagesOfUser(user);
+        userMessageController.deleteMessagesOfUser(user);
         number++;
     }
 }

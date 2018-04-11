@@ -2,12 +2,11 @@ package controller;
 
 import model.dao.AuctionDao;
 import model.dao.ProductDao;
+import model.dao.UserBidProductDao;
 import model.entities.Auction;
 import model.entities.Product;
+import model.entities.UserBidProduct;
 import model.entities.Users;
-
-import javax.ejb.Local;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -22,7 +21,8 @@ public class CreateAuctionSessionBean implements Serializable {
     private AuctionDao auctionDao;
     @Inject
     private ProductDao productDao;
-
+    @Inject
+    private UserBidProductDao userBidProductDao;
     private Auction auction;
     private Users user;
     private List<Product> products;
@@ -69,6 +69,7 @@ public class CreateAuctionSessionBean implements Serializable {
             auction.setProductsByAuctionId(products);
             auction.setActive(true);
             auctionDao.update(auction);
+            createDefaultBids();
             persistResult = true;
         } else {
             persistResult = false;
@@ -89,6 +90,22 @@ public class CreateAuctionSessionBean implements Serializable {
             }
         }
         return result;
+    }
+
+    private void createDefaultBids() {
+        for(Product product : products)
+        {
+            if(product != null)
+            {
+                UserBidProduct userBidProduct = new UserBidProduct();
+                userBidProduct.setAuctionByAuctionAuctionId(auction);
+                userBidProduct.setProductByProductProductId(product);
+                userBidProduct.setLastBid(product.getSellStartPrice());
+                userBidProduct.setUsersByUserUserId(user);
+                userBidProductDao.create(userBidProduct);
+            }
+        }
+
     }
 
 }

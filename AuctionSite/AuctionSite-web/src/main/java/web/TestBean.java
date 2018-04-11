@@ -1,6 +1,7 @@
 package web;
 
 import controller.CreateAuctionSessionBean;
+import controller.UserBidProductController;
 import model.dao.CategoryDao;
 import model.dao.UserDao;
 import model.entities.Auction;
@@ -27,7 +28,8 @@ public class TestBean implements Serializable {
     private UserDao userDao;
     @Inject
     private CategoryDao categoryDao;
-
+    @Inject
+    private UserBidProductController userBidProductController;
 
     public void test() {
         Auction auction = new Auction();
@@ -38,11 +40,11 @@ public class TestBean implements Serializable {
         loc = loc.split("\\.")[0];
         LocalDateTime localDateTime = LocalDateTime.parse(loc);
         auction.setAuctionStart(localDateTime);
-        auction.setAuctionEnd(auction.getAuctionStart().plusHours(10));
-
+//        auction.setAuctionEnd(auction.getAuctionStart().plusHours(10));
+        auction.setAuctionEnd(auction.getAuctionStart().plusMinutes(2));
 
         Product product = new Product();
-        product.setProductName("Product");
+        product.setProductName("Productxxx");
         product.setCount(10);
         product.setSellStartPrice(100.1);
 
@@ -54,10 +56,9 @@ public class TestBean implements Serializable {
         product.setProductCategoryByProductCategoryCategoryId(productCategory);
         createAuctionSessionBean.setUser(user);
         createAuctionSessionBean.setProducts(productList);
-
-
         createAuctionSessionBean.setAuction(auction);
         createAuctionSessionBean.createNewAuction();
-
+        System.out.println("Extending Auction Time ");
+        userBidProductController.extendAuctionTime(auction);
     }
 }

@@ -40,9 +40,23 @@ public class UserBidProductDao extends AbstractDao<UserBidProduct> {
     }
 
     public List<UserBidProduct> getLastNBids(Auction auction, Product product) {
-        Query query = getEntityManager().createQuery("select b from UserBidProduct b where b.auctionByAuctionAuctionId = :auction and b.productByProductProductId = :product ORDER BY b.userBidId ASC").setMaxResults(5);
+        Query query =
+                getEntityManager()
+                        .createQuery("select x from UserBidProduct x " +
+                                "where x.auctionByAuctionAuctionId = :auction and x.productByProductProductId = :product " +
+                                "ORDER BY x.userBidId ASC").setMaxResults(20);
         query.setParameter("auction", auction).setParameter("product", product);
         List<UserBidProduct> userBidders = query.getResultList();
         return userBidders;
+    }
+
+    public UserBidProduct getLastBidder(Product product) {
+        Query query = getEntityManager().createQuery("select b from UserBidProduct b where b.productByProductProductId = :product order by b.id desc");
+        query.setParameter("product" , product);
+        List<UserBidProduct> userBidProductList = query.getResultList();
+        UserBidProduct userBidProduct = null;
+        if(userBidProductList != null && userBidProductList.size()>0)
+            userBidProduct= userBidProductList.get(0);
+        return userBidProduct;
     }
 }

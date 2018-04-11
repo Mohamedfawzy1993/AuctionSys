@@ -8,10 +8,12 @@ public class UserMessage {
     private int id;
     private String message;
     private Users user;
+    private boolean active;
 
-    public UserMessage(String message, Users user) {
+    public UserMessage(String message, Users user , boolean active) {
         this.message = message;
         this.user = user;
+        this.active = active;
     }
 
     public UserMessage() {
@@ -20,6 +22,7 @@ public class UserMessage {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -46,6 +49,16 @@ public class UserMessage {
 
     public void setUser(Users usersByUserUserId) {
         this.user = usersByUserUserId;
+    }
+
+    @Basic
+    @Column(name = "active")
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override
