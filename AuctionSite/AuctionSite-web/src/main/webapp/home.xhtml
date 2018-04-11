@@ -1,34 +1,78 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<head>
-    <title>
-        Home
-    </title>
-</head>
-<h:body>
-    <f:view>
-        <h:form>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<ui:composition template="template/mainTemp.xhtml">
+    <ui:define name="body">
+        <f:view>
+            <h:form>
+                <div class="top-brands">
+                    <div class="container">
+                        <h2>Top Offered Auctions</h2>
+                        <div class="grid_3 grid_5">
+                            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 
-            <ui:repeat value="#{AllAuctions.model}" var="auction">
-                <h:panelGroup layout="block">
-                    <h:commandLink action="#{AuctionDetails.goToAuction()}">
-                        <f:param name="selectedAuction" value="#{auction.auctionId}"/>
-                        <h1>#{auction.auctiontitle} </h1>
-                    </h:commandLink>
-                        <h4>#{auction.auctiondescription} </h4>
-                        <h4>#{auction.auctiondescription} </h4>
-                        <h4> EndTime #{auction.auctionEnd} </h4>
-                </h:panelGroup>
-                <br/>
-                <br/>
-                <br/>
-            </ui:repeat>
-        </h:form>
-    </f:view>
-</h:body>
+                                <div id="myTabContent" class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade in active" id="expeditions"
+                                         aria-labelledby="expeditions-tab">
+                                        <!--///////////////////////-->
+                                        <ui:repeat value="#{AllAuctions.model}" var="auction">
+                                            <div class="agile_top_brands_grids">
+                                                <div class="col-md-4 top_brand_left">
+                                                    <div class="hover14 column">
+                                                        <div class="agile_top_brand_left_grid">
+
+                                                            <div class="agile_top_brand_left_grid1">
+                                                                <figure>
+                                                                    <div class="snipcart-item block">
+                                                                        <div class="snipcart-thumb">
+                                                                            <h:commandLink
+                                                                                    action="#{AuctionDetails.goToAuction()}">
+                                                                                <f:param name="selectedAuction"
+                                                                                         value="#{auction.auctionId}"/>
+                                                                                <img title=" "
+                                                                                     alt=" "
+                                                                                     src="images/#{auction.auctionId}.png"/>
+                                                                            </h:commandLink>
+                                                                            <p>#{auction.auctiontitle}</p>
+                                                                            <h4>EndTime #{auction.auctionEnd}</h4>
+                                                                        </div>
+                                                                        <div class="snipcart-details top_brand_home_details">
+                                                                            <fieldset>
+                                                                                <h:commandLink
+                                                                                        action="#{AuctionDetails.goToAuction()}">
+                                                                                    <f:param name="selectedAuction"
+                                                                                             value="#{auction.auctionId}"/>
+                                                                                    <h1>View </h1>
+                                                                                </h:commandLink>
+                                                                            </fieldset>
+                                                                        </div>
+                                                                    </div>
+                                                                </figure>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <!--//////////////////-->
+                                        </ui:repeat>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </f:view>
+    </ui:define>
+</ui:composition>
 </html>
+
+
