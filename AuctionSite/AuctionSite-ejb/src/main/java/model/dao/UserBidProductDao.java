@@ -32,10 +32,16 @@ public class UserBidProductDao extends AbstractDao<UserBidProduct> {
 //    }
 
 
-    public List<UserBidProduct> auctionBidders(Auction auction)
-    {
+    public List<UserBidProduct> auctionBidders(Auction auction) {
         Query query = getEntityManager().createQuery("select b from UserBidProduct b where b.auctionByAuctionAuctionId = :auction");
-        query.setParameter("auction" , auction);
+        query.setParameter("auction", auction);
+        List<UserBidProduct> userBidders = query.getResultList();
+        return userBidders;
+    }
+
+    public List<UserBidProduct> getLastNBids(Auction auction, Product product) {
+        Query query = getEntityManager().createQuery("select b from UserBidProduct b where b.auctionByAuctionAuctionId = :auction and b.productByProductProductId = :product ORDER BY b.userBidId ASC").setMaxResults(5);
+        query.setParameter("auction", auction).setParameter("product", product);
         List<UserBidProduct> userBidders = query.getResultList();
         return userBidders;
     }

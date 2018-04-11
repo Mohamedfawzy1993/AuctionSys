@@ -10,30 +10,42 @@
 
 <h:body>
     <f:view>
+
         <h:form>
-            <h:panelGroup layout="block">
-                <h1>#{AuctionDetails.auction.auctiontitle} </h1>
-                <br/>
-                <br/>
-                <br/>
-                <ui:repeat value="#{AuctionDetails.auctionBids}" var="auctionBid">
-                    <h4>Product: #{auctionBid.productByProductProductId.productName} With Max bid #{auctionBid.lastBid}
-                        <h:commandButton value="Bid" action="#{AuctionDetails.makeBid}">
-                            <f:param name="selectedAuction" value="#{auctionBid.auctionByAuctionAuctionId.auctionId}"/>
-                            <f:param name="selectedProduct" value="#{auctionBid.productByProductProductId.productId}"/>
-                        </h:commandButton>
-                    </h4>
-                </ui:repeat>
-                <h:inputText value="#{AuctionDetails.amount}"/>
-            </h:panelGroup>
             <br/>
             <br/>
             <br/>
+            <h:dataTable value="#{AuctionDetails.model}" var="auctionDetail">
+                <h:column>
+                    <f:facet name="header">Product</f:facet>
+                    <h:outputText value="#{auctionDetail.productByProductProductId.productName}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">lastPid</f:facet>
+                    <h:outputText value="#{auctionDetail.lastBid}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">lastPid</f:facet>
+                    <h:inputText value="#{auctionDetail.lastBid}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Action</f:facet>
+                    <h:commandLink value="Pid" action="#{AuctionDetails.makeBid(auctionDetail)}"/>
+                </h:column>
+            </h:dataTable>
+
         </h:form>
     </f:view>
     <h:form>
-        <h:outputText id="txt_count" value="#{loginBean.number}"/>
-        <p:poll interval="1" listener="#{loginBean.increment}" update="txt_count"/>
+        <h:dataTable id="txt_count" value="#{loginBean.model}" var="mes">
+            <h:column>
+                <f:facet name="header">Message</f:facet>
+                <h:outputText value="#{mes.message}"/>
+            </h:column>
+        </h:dataTable>
+
+        <!--<h:outputText id="txt_count" value="#{loginBean.number}"/>-->
+        <p:poll interval="5" listener="#{loginBean.getMassges}" update="txt_count"/>
     </h:form>
 </h:body>
 </html>

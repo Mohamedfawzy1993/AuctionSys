@@ -2,23 +2,18 @@ package web;
 
 import controller.ManageAuctionSessionBean;
 import controller.ProductController;
-import controller.TempAllAuctionsController;
 import controller.UserBidProductController;
 import model.entities.Auction;
 import model.entities.Product;
 import model.entities.UserBidProduct;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +29,6 @@ public class AuctionDetails implements Serializable {
 
     @Inject
     private ManageAuctionSessionBean manageAuctionSessionBean;
-    private TempAllAuctionsController tempAllAuctionsController;
 
     @Inject
     private ProductController productController;
@@ -43,9 +37,16 @@ public class AuctionDetails implements Serializable {
     private UserBidProductController userBidProductController;
 
 
-    Auction auction;
-    List<UserBidProduct> auctionBids = new ArrayList<>();
+    private DataModel<UserBidProduct> model;
+
+    private Auction auction;
+    private List<UserBidProduct> auctionBids = new ArrayList<>();
     public double amount;
+
+    public AuctionDetails() {
+
+
+    }
 
     public UserBidProductController getUserBidProductController() {
         return userBidProductController;
@@ -63,7 +64,6 @@ public class AuctionDetails implements Serializable {
     public void setAmount(double amount) {
         this.amount = amount;
     }
-    //    private DataModel<Auction> model;
 
 
     public List<UserBidProduct> getAuctionBids() {
@@ -73,12 +73,6 @@ public class AuctionDetails implements Serializable {
     public void setAuctionBids(List<UserBidProduct> auctionBids) {
         this.auctionBids = auctionBids;
     }
-
-    public AuctionDetails() {
-
-
-    }
-
 
     public ManageAuctionSessionBean getManageAuctionSessionBean() {
         return manageAuctionSessionBean;
@@ -94,20 +88,6 @@ public class AuctionDetails implements Serializable {
 
     public void setAuction(Auction auction) {
         this.auction = auction;
-    }
-
-    public String goToAuction() {
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String selectedAuctionID = params.get("selectedAuction");
-        auctionBids.clear();
-        auction = tempAllAuctionsController.getAuctionByID(selectedAuctionID);
-        for (Product product : auction.getProductsByAuctionId()) {
-            UserBidProduct temp = tempAllAuctionsController.getMaxPid(auction, product);
-            if (temp != null) {
-                auctionBids.add(temp);
-            }
-        }
-        return "auctionDetails";
     }
 
     public LoginBean getLoginBeanUser() {
@@ -126,15 +106,58 @@ public class AuctionDetails implements Serializable {
         this.productController = productController;
     }
 
-    public String makeBid() {
+    public DataModel<UserBidProduct> getModel() {
+        return model;
+    }
 
+    public void setModel(DataModel<UserBidProduct> model) {
+        this.model = model;
+    }
+
+    public String goToAuction() {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String selectedAuctionID = params.get("selectedAuction");
-        String selectedProductID = params.get("selectedProduct");
-        Product product = productController.getProductByID(selectedAuctionID);
-        auction = tempAllAuctionsController.getAuctionByID(selectedAuctionID);
-        userBidProductController.makeNewPid(loginBeanUser.getUser(), auction, product, amount);
-        System.out.println(" *-*-*-*-**-*-* " + "selectedAuction : " + selectedAuctionID + " , selectedProduct  :  " + selectedProductID + " , amount  :  " + amount + " *-*-*-*-**-*-* " + loginBeanUser.getUser() + " *-*-*-*-**-*-* " + product);
+        auctionBids.clear();
+        auction = manageAuctionSessionBean.getAuctionByID(selectedAuctionID);
+        for (Product product : auction.getProductsByAuctionId()) {
+            UserBidProduct temp = manageAuctionSessionBean.getMaxPid(auction, product);
+            if (temp != null) {
+                auctionBids.add(temp);
+            }
+        }
+        model = new ListDataModel<UserBidProduct>(auctionBids);
         return "auctionDetails";
     }
+
+//    public String makeBid() {
+//
+//        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+//        String selectedAuctionID = params.get("selectedAuction");
+//        String selectedProductID = params.get("selectedProduct");
+//        Product product = productController.getProductByID(selectedAuctionID);
+//        auction = manageAuctionSessionBean.getAuctionByID(selectedAuctionID);
+//        userBidProductController.makeNewPid(loginBeanUser.getUser(), auction, product, amount);
+//        System.out.println(" *-*-*-*-**-*-* " + "selectedAuction : " + selectedAuctionID + " , selectedProduct  :  " + selectedProductID + " , amount  :  " + amount + " *-*-*-*-**-*-* " + loginBeanUser.getUser() + " *-*-*-*-**-*-* " + product);
+//        return "auctionDetails";
+//    }
+
+    public String makeBid(UserBidProduct newPid) {
+
+        System.out.println("*+*+*+ newPid -> " + newPid);
+        auction = newPid.getAuctionByAuctionAuctionId();
+        userBidProductController.makeNewPid(loginBeanUser.getUser(), auction, newPid.getProductByProductProductId(), newPid.getLastBid());
+        //we will use this paet if not ui updateble
+        /*
+        auctionBids.clear();
+        for (Product product : auction.getProductsByAuctionId()) {
+            UserBidProduct temp = manageAuctionSessionBean.getMaxPid(auction, product);
+            if (temp != null) {
+                auctionBids.add(temp);
+            }
+        }
+        model = new ListDataModel<UserBidProduct>(auctionBids);
+*/
+        return "auctionDetails";
+    }
+
 }

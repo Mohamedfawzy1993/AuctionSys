@@ -39,5 +39,7 @@ public class ManageAuctionSessionBean {
 
         return auctionDao.getMaxPidForProductInAuction(auction, product);
     }
+
+
 }
 
