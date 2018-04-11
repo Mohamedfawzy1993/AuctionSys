@@ -2,6 +2,8 @@ package controller;
 
 import model.dao.AuctionDao;
 import model.entities.Auction;
+import model.entities.Product;
+import model.entities.UserBidProduct;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -32,6 +34,12 @@ public class TempAllAuctionsController {
         int id = Integer.parseInt(auctionid);
         resAuction = auctionDao.find(Auction.class, id);
         return resAuction;
+    }
+
+
+    public UserBidProduct getMaxPid(Auction auction, Product product) {
+
+        return auctionDao.getMaxPidForProductInAuction(auction, product);
     }
 }
 

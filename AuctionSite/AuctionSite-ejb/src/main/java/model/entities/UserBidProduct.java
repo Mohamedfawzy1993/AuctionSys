@@ -6,6 +6,17 @@ import javax.persistence.*;
 @Table(name = "user_bid_product", schema = "auctionSys", catalog = "")
 public class UserBidProduct {
     private int userBidId;
+
+    public UserBidProduct(Double lastBid, Auction auctionByAuctionAuctionId, Product productByProductProductId, Users usersByUserUserId) {
+        this.lastBid = lastBid;
+        this.auctionByAuctionAuctionId = auctionByAuctionAuctionId;
+        this.productByProductProductId = productByProductProductId;
+        this.usersByUserUserId = usersByUserUserId;
+    }
+
+    public UserBidProduct() {
+    }
+
     private Double lastBid;
     private Auction auctionByAuctionAuctionId;
     private Product productByProductProductId;

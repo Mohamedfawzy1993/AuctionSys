@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @Named(value = "loginBean")
 @SessionScoped
-public class LoginBean implements Serializable{
+public class LoginBean implements Serializable {
 
     @Inject
     private LoginSessionBean loginSessionBean;
@@ -47,16 +47,25 @@ public class LoginBean implements Serializable{
         this.Users = Users;
     }
 
-    public String verifyUser()
-    {
-        Users = loginSessionBean.VerifyUser(email , password);
-        if(Users != null)
-        {
+    public String verifyUser() {
+        Users = loginSessionBean.VerifyUser(email, password);
+        if (Users != null) {
             System.out.println(Users.getEmail());
             System.out.println(Users.getPassword());
             System.out.println(Users.getUsername());
-        return "home";
+            return "home";
         }
         return null;
+    }
+
+    private int number = 100;
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void increment() {
+        System.out.println("Incrementing....");
+        number++;
     }
 }
