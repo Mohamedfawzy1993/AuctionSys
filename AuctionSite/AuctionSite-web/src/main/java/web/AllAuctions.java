@@ -1,6 +1,6 @@
 package web;
 
-import controller.TempAllAuctionsController;
+import controller.ManageAuctionSessionBean;
 import model.entities.Auction;
 import model.entities.Product;
 import model.entities.UserBidProduct;
@@ -16,14 +16,13 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 @Named(value = "AllAuctions")
 @ApplicationScoped
 public class AllAuctions implements Serializable {
 
     @Inject
-    private TempAllAuctionsController tempAllAuctionsController;
+    private ManageAuctionSessionBean manageAuctionSessionBean;
     List<Auction> auctionsList;
     private DataModel<Auction> model;
 
@@ -31,12 +30,12 @@ public class AllAuctions implements Serializable {
 
     }
 
-    public TempAllAuctionsController getTempAllAuctionsController() {
-        return tempAllAuctionsController;
+    public ManageAuctionSessionBean getManageAuctionSessionBean() {
+        return manageAuctionSessionBean;
     }
 
-    public void setTempAllAuctionsController(TempAllAuctionsController tempAllAuctionsController) {
-        this.tempAllAuctionsController = tempAllAuctionsController;
+    public void setManageAuctionSessionBean(ManageAuctionSessionBean manageAuctionSessionBean) {
+        this.manageAuctionSessionBean = manageAuctionSessionBean;
     }
 
     public List<Auction> getAuctionsList() {
@@ -57,7 +56,7 @@ public class AllAuctions implements Serializable {
 
     @PostConstruct
     public void allAuctions() {
-        auctionsList = tempAllAuctionsController.getAllActiveAuctions();
+        auctionsList = manageAuctionSessionBean.getAllActiveAuctions();
         model = new ListDataModel<Auction>(auctionsList);
 
         for (Auction auction : auctionsList) {
@@ -75,5 +74,7 @@ public class AllAuctions implements Serializable {
         }
 
     }
+
+
 
 }

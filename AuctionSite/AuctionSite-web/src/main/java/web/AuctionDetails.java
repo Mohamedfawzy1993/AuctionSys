@@ -1,5 +1,6 @@
 package web;
 
+import controller.ManageAuctionSessionBean;
 import controller.ProductController;
 import controller.TempAllAuctionsController;
 import controller.UserBidProductController;
@@ -32,6 +33,7 @@ public class AuctionDetails implements Serializable {
     private LoginBean loginBeanUser;
 
     @Inject
+    private ManageAuctionSessionBean manageAuctionSessionBean;
     private TempAllAuctionsController tempAllAuctionsController;
 
     @Inject
@@ -78,12 +80,12 @@ public class AuctionDetails implements Serializable {
     }
 
 
-    public TempAllAuctionsController getTempAllAuctionsController() {
-        return tempAllAuctionsController;
+    public ManageAuctionSessionBean getManageAuctionSessionBean() {
+        return manageAuctionSessionBean;
     }
 
-    public void setTempAllAuctionsController(TempAllAuctionsController tempAllAuctionsController) {
-        this.tempAllAuctionsController = tempAllAuctionsController;
+    public void setManageAuctionSessionBean(ManageAuctionSessionBean manageAuctionSessionBean) {
+        this.manageAuctionSessionBean = manageAuctionSessionBean;
     }
 
     public Auction getAuction() {

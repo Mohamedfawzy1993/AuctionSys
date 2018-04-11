@@ -55,10 +55,7 @@ public class RegisterBean {
 
     public void saveUser()
     {
-        System.out.println(registeredUser.getUsername());
-        System.out.println(registeredUser.getPassword());
-        System.out.println(registeredUser.getEmail());
-        System.out.println(registeredUser.getRole());
+
         registeredUser.setBalance(100.0);
         registrationSessionBean.setUser(registeredUser);
         registrationSessionBean.addUserToDatabase();

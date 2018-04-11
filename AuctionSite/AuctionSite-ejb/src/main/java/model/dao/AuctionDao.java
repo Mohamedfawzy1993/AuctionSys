@@ -25,7 +25,7 @@ public class AuctionDao extends AbstractDao<Auction> {
     }
 
     public List<Auction> getActiveAuctions() {
-        Query query = getEntityManager().createQuery("select a from Auction  a where a.active =1");
+        Query query = getEntityManager().createQuery("select a from Auction  a where a.active = true");
         List<Auction> auctionList = query.getResultList();
         for (Auction auction : auctionList) {
             System.out.println("------------AllAuctions.allAuctions()-----------------");

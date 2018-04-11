@@ -12,16 +12,14 @@ import java.util.List;
 
 @Stateless
 @LocalBean
-public class TempAllAuctionsController {
+public class ManageAuctionSessionBean {
 
     @Inject
     private AuctionDao auctionDao;
 
-    private model.entities.Auction auction;
+    private Auction auction;
 
-
-    public TempAllAuctionsController() {
-    }
+    public ManageAuctionSessionBean() { }
 
 
     public List<Auction> getAllActiveAuctions() {
