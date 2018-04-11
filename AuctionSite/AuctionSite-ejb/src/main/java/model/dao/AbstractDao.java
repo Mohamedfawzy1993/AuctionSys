@@ -1,6 +1,9 @@
 package model.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -29,6 +32,15 @@ public abstract class AbstractDao<T> {
 
     public T find(Class<T> entityType, int id) {
         return getEntityManager().find(entityType, id);
+    }
+
+    public List<T> findAll(Class<T> entityType)
+    {
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(entityType);
+        Root<T> variableRoot = query.from(entityType);
+        query.select(variableRoot);
+        return getEntityManager().createQuery(query).getResultList();
     }
 
 

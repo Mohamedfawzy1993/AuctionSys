@@ -1,17 +1,13 @@
 package web;
 
-import controller.TempAllAuctionsController;
+import controller.ManageAuctionSessionBean;
 import model.entities.Auction;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Map;
 
 @Named(value = "AuctionDetails")
@@ -19,7 +15,7 @@ import java.util.Map;
     public class AuctionDetails implements Serializable {
 
     @Inject
-    private TempAllAuctionsController tempAllAuctionsController;
+    private ManageAuctionSessionBean manageAuctionSessionBean;
     Auction auction;
 //    private DataModel<Auction> model;
 
@@ -27,12 +23,12 @@ import java.util.Map;
 
     }
 
-    public TempAllAuctionsController getTempAllAuctionsController() {
-        return tempAllAuctionsController;
+    public ManageAuctionSessionBean getManageAuctionSessionBean() {
+        return manageAuctionSessionBean;
     }
 
-    public void setTempAllAuctionsController(TempAllAuctionsController tempAllAuctionsController) {
-        this.tempAllAuctionsController = tempAllAuctionsController;
+    public void setManageAuctionSessionBean(ManageAuctionSessionBean manageAuctionSessionBean) {
+        this.manageAuctionSessionBean = manageAuctionSessionBean;
     }
 
     public Auction getAuction() {
@@ -46,7 +42,7 @@ import java.util.Map;
     public String goToAuction( ) {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String selectedAuctionID = params.get("selectedAuction");
-        auction= tempAllAuctionsController.getAuctionByID(selectedAuctionID);
+        auction= manageAuctionSessionBean.getAuctionByID(selectedAuctionID);
         return "auctionDetails";
     }
 }

@@ -16,7 +16,6 @@ import java.io.Serializable;
 import java.util.List;
 
 @Stateless
-@LocalBean
 public class CreateAuctionSessionBean implements Serializable {
 
     @Inject
@@ -30,13 +29,6 @@ public class CreateAuctionSessionBean implements Serializable {
 
     public CreateAuctionSessionBean() {
     }
-
-    public CreateAuctionSessionBean(Auction auction, Users user, List<Product> products) {
-        this.auction = auction;
-        this.user = user;
-        this.products = products;
-    }
-
 
     public Auction getAuction() {
         return auction;
@@ -69,9 +61,14 @@ public class CreateAuctionSessionBean implements Serializable {
             return false;
         }
 
-        boolean persistResult = createProducts();
+        auction.setActive(false);
+        auctionDao.create(auction);
+
+        boolean persistResult = createProducts(auction);
         if (persistResult) {
-            auctionDao.create(auction);
+            auction.setProductsByAuctionId(products);
+            auction.setActive(true);
+            auctionDao.update(auction);
             persistResult = true;
         } else {
             persistResult = false;
@@ -79,11 +76,12 @@ public class CreateAuctionSessionBean implements Serializable {
         return persistResult;
     }
 
-    private boolean createProducts() {
+    private boolean createProducts(Auction auction) {
         boolean result = false;
         for (Product product : products) {
             if (product != null) {
                 product.setUsersByUsersUserId(user);
+                product.setAuctionByAuctionAuctionId(auction);
                 productDao.create(product);
                 result = true;
             } else {
