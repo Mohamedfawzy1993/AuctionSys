@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+<!--<h:outputStylesheet name="style.css"></h:outputStylesheet>-->
+<ui:composition>
+    <div class="login">
+        <div class="container">
+            <h2>Login Form</h2>
+            <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
+                <h:form prependId="false">
+                    <h:inputText value="#{email}" id="email" requiredMessage="Email is required" style="color: #fe9126"
+                                 required="true" validator="#{myValidator.validateName}">
+                        <f:validateRequired/>
+                        <f:ajax event="blur" execute="@this" render="emailError"/>
+                    </h:inputText>
+                    <h:message for="email" id="emailError" style="color:red"></h:message>
+                    <h:inputSecret id="password" requiredMessage="Password is required" value="#{password}"
+                                   style="color: #fe9126" required="true"/>
+                    <h:message for="password" id="passworderror" style="color:red"></h:message>
+                    <h:commandButton styleClass="login" type="submit" value="#{buttonSubmitLabel}"
+                                     action="#{loginBean.verifyUser}"/>
+                </h:form>
+            </div>
+            <h4>For New People</h4>
+            <p><h:link outcome="register" value="Register Here"/> (Or) go back to <h:link outcome="index">Home<span
+                    class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></h:link>></p>
+        </div>
+    </div>
+</ui:composition>
+</html>

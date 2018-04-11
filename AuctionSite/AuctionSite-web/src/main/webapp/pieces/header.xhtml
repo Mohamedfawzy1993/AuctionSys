@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+    <div class="agileits_header">
+        <div class="container">
+            <div class="w3l_offers">
+            </div>
+            <div class="agile-login">
+                <ul>
+                    <h:panelGroup id="userLogin" rendered="#{!loginBean.isLogin()}">
+                        <!--<li><a href="registered.html">  </a></li>-->
+                        <li><h:link outcome="register" value="Create Account"></h:link></li>
+                        <li><h:link outcome="login" value="Login"></h:link></li>
+                    </h:panelGroup>
+                    <h:panelGroup id="userMenu" rendered="#{loginBean.isLogin()}">
+                        <!--<li class="dropdown">-->
+                            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">User Data<b-->
+                                    <!--class="caret"></b></a>-->
+                            <!--<ul class="dropdown-menu multi-column">-->
+                                <!--<div class="multi-gd-img">-->
+                                    <!--<ul class="multi-column-dropdown">-->
+                                        <!--<li><h:link outcome="accountDetails" value="Account Details"></h:link></li>-->
+                                        <!--<li><h:link outcome="vote" value="Vote"></h:link></li>-->
+                                    <!--</ul>-->
+                                <!--</div>-->
+                            <!--</ul>-->
+                        <!--</li>-->
+                        <li><h:link outcome="home" value="#{loginBean.user.username}"></h:link></li>
+
+                    </h:panelGroup>
+                    <li><a href="contact.html">Help</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="logo_products">
+        <div class="container">
+            <div class="w3ls_logo_products_left1">
+                <ul class="phone_email">
+
+                </ul>
+            </div>
+            <div class="w3ls_logo_products_left">
+                <h1><a href="index.html">Good Auction</a></h1>
+            </div>
+
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- //header -->
+
+    <!-- navigation -->
+    <div class="navigation-agileits">
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header nav_2">
+                    <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse"
+                            data-target="#bs-megadropdown-tabs">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><h:link outcome="home" styleClass="act">Home</h:link></li>
+                        <!-- Mega Menu -->
+
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+</ui:composition>
+

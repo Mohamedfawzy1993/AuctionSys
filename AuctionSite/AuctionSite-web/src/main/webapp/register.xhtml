@@ -3,26 +3,77 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<head>
-    <title>Title</title>
-</head>
-<body>
-<f:view>
-    <h:form>
-        Name : <h:inputText value="${registerBean.registeredUser.username}"/>
-        <br/>
-        Password : <h:inputText value="${registerBean.registeredUser.password}"/>
-        <br/>
-        Email : <h:inputText value="${registerBean.registeredUser.email}"/>
-        <br/>
-        Type  : <h:selectOneMenu value="#{registerBean.registeredUser.role}">
-            <f:selectItems value="#{registerBean.roles}" var="c" itemLabel="#{c}" itemValue="#{c}"/>
-            </h:selectOneMenu>
-            <br/>
-            <h:commandButton value="Submit" action="#{registerBean.saveUser}"/>
-    </h:form>
-</f:view>
+      xmlns:java2s="http://java2s.com/facelets"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<ui:composition template="template/mainTemp.xhtml">
+    <ui:define name="body">
+        <f:loadBundle basename="messages" var="msgs"/>
+        <f:view>
 
-</body>
+            <div class="register">
+                <div class="container">
+                    <h2>Register Here</h2>
+                    <div class="login-form-grids">
+                        <h5>#{msgs.PROFILE_INFORMATION}</h5>
+                        <br/>
+                        <br/>
+                        <h:form>
+                            <h:outputText styleClass="#{msgs.dirmessage}" value="#{msgs.userName}"/>
+                            <h:inputText value="#{registerBean.registeredUser.username}"
+                                         requiredMessage="#{msgs.userName_requiredMessage}" id="userName">
+                                <f:validateRequired/>
+                            </h:inputText>
+                            <h:message style="color: red" styleClass="#{msgs.dirmessage}" for="userName"/>
+                            <br/>
+                            <h6>#{msgs.LOGIN_INFORMATION}</h6>
+                            <br/>
+                            <h:outputText styleClass="#{msgs.dirmessage}" value="#{msgs.email}"/>
+                            <h:inputText value="#{registerBean.registeredUser.email}"
+                                         requiredMessage="#{msgs.email_requiredMessage}"
+                                         validatorMessage="#{msgs.email_validatorMessage}"
+                                         id="email">
+                                <f:validateRequired/>
+                                <f:validator validatorId="validator.EmailValidator"/>
+                            </h:inputText>
+                            <h:message styleClass="#{msgs.dirmessage}" style="color: red" for="email"/>
+                            <br/>
+                            <br/>
+                            <h:outputText styleClass="#{msgs.dirmessage}" value="#{msgs.password}"/>
+                            <h:inputSecret value="#{registerBean.registeredUser.password}"
+                                         requiredMessage="#{msgs.password_requiredMessage}"
+                                         validatorMessage="#{msgs.password_validatorMessage}"
+                                         id="password">
+                                <f:validateRequired/>
+                                <f:validateLength minimum="8"/>
+                            </h:inputSecret>
+                            <h:message styleClass="#{msgs.dirmessage}" style="color: red" for="password"/>
+                            <br/>
+                            <br/>
+                            <h:outputText styleClass="#{msgs.dirmessage}" value="#{msgs.credit}"/>
+                            <h:selectOneMenu styleClass="#{msgs.dirmessage}" value="#{registerBean.registeredUser.role}">
+                                <f:selectItems value="#{registerBean.roles}" var="c" itemLabel="#{c}" itemValue="#{c}"/>
+                            </h:selectOneMenu>
+                            <br/>
+                            <br/>
+                            <h:commandButton value="#{msgs.regBut}" action="#{registerBean.saveUser}">
+                            </h:commandButton>
+                            <h:commandButton value="#{msgs.Cancel}"
+                                             action="register" immediate="true"/>
+
+                        </h:form>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </f:view>
+    </ui:define>
+</ui:composition>
 </html>
+
