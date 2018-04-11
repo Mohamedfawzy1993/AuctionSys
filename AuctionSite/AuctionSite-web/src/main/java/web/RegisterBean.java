@@ -5,6 +5,7 @@ import model.entities.Users;
 import controller.RegistrationSessionBean;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
@@ -17,6 +18,9 @@ public class RegisterBean {
 
     @Inject
     private RegistrationSessionBean registrationSessionBean;
+
+    @ManagedProperty(value = "#{loginBean}")
+    private LoginBean loginBeanUser;
 
     private Users registeredUser;
     private String registerResult;
@@ -53,12 +57,15 @@ public class RegisterBean {
         this.roles = roles;
     }
 
-    public void saveUser()
-    {
+    public String saveUser() {
 
         registeredUser.setBalance(100.0);
         registrationSessionBean.setUser(registeredUser);
         registrationSessionBean.addUserToDatabase();
+//        loginBeanUser.setUser(registeredUser);
+//        loginBeanUser.setEmail(registeredUser.getEmail());
+//        loginBeanUser.setPassword(registeredUser.getPassword());
+        return "login";
 
     }
 }

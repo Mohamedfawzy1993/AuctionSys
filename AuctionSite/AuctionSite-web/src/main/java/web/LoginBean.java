@@ -128,4 +128,11 @@ public class LoginBean implements Serializable {
 //        userMessageController.deleteMessagesOfUser(user);
         number++;
     }
+    public boolean isLogin() {
+        if (this.user == null) {
+            return false;
+        }
+
+        return true;
+    }
 }
