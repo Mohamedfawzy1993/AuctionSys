@@ -3,6 +3,7 @@ package model.dao;
 import model.entities.Auction;
 import model.entities.Product;
 import model.entities.UserBidProduct;
+import model.entities.Users;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

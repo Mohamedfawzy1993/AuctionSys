@@ -98,7 +98,6 @@ public class RegisterAuctionBean implements Serializable {
         LocalDateTime loc = LocalDateTime.parse(loca);
         auction.setAuctionStart(loc);
         auction.setAuctionEnd(auction.getAuctionStart().plusHours(duration));
-        System.out.println(auction.getAuctionEnd());
     }
 
     public void addProduct() {

@@ -6,14 +6,16 @@ import model.dao.UserDao;
 import model.entities.Auction;
 import model.entities.Product;
 import model.entities.UserBidProduct;
+import model.entities.Users;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.xml.registry.infomodel.User;
 import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
-public class AdminControlSessionBean {
+public class AuctionDataSessionBean {
 
     @Inject
     private UserBidProductDao userBidProductDao;
@@ -58,6 +60,36 @@ public class AdminControlSessionBean {
             }
 
         return userBidProducts;
+    }
+
+    public List<UserBidProduct> getAllWinnedAuctions(Users user) {
+        List<UserBidProduct> winnedBids = new ArrayList<>();
+        List<UserBidProduct> userBidProducts = userBidProductDao.getUserExpiredAuctionBids(user);
+        List<Integer> scannedBids = new ArrayList<>();
+
+
+        System.out.println("UserBid is : "+userBidProducts == null);
+        if(userBidProducts != null && userBidProducts.size()>0)
+        {
+            for(UserBidProduct userBidProduct : userBidProducts)
+            {
+                if(!scannedBids.contains(userBidProduct.getProductByProductProductId().getProductId()))
+                {
+                    System.out.println("Product is :"+userBidProduct.getProductByProductProductId().getProductName());
+                    UserBidProduct highestProductWinner = getHighestProductBid(userBidProduct.getProductByProductProductId());
+                    System.out.println("Highest Product Winner : "+highestProductWinner.getUsersByUserUserId().getUsername());
+                    System.out.println("Current User is : "+user.getUsername());
+                    System.out.println("Are They Equal : "+(highestProductWinner.getUsersByUserUserId() == user));
+                    if(highestProductWinner != null && highestProductWinner.getUsersByUserUserId().getUserId() == user.getUserId())
+                    {
+
+                        winnedBids.add(userBidProduct);
+                    }
+                }
+                scannedBids.add(userBidProduct.getProductByProductProductId().getProductId());
+            }
+        }
+        return winnedBids;
     }
 
 
