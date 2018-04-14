@@ -5,21 +5,20 @@ import controller.CreateAuctionSessionBean;
 import model.entities.Auction;
 import model.entities.Product;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
+
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
-@Named(value = "registerAuctionBean")
+@ManagedBean(name = "registerAuctionBean")
 @SessionScoped
 public class RegisterAuctionBean implements Serializable {
 
@@ -27,20 +26,44 @@ public class RegisterAuctionBean implements Serializable {
     @Inject
     private CreateAuctionSessionBean createAuctionSessionBean;
     private Auction auction;
-    private int duration ;
+    private int duration;
     private List<Product> products;
-    private Product product = new Product();;
+    private List<String> durationType;
+    private Product product = new Product();
     private DataModel<Product> productsModel;
 
-    @ManagedProperty(value = "#{LoginBean}}")
+    private String auctiontitle;
+    private String auctiondescription;
+
+    @ManagedProperty(value = "#{loginBean}")
     private LoginBean loginBean;
+
+    public AllAuctions getAllAuctions() {
+        return allAuctions;
+    }
+
+    public void setAllAuctions(AllAuctions allAuctions) {
+        this.allAuctions = allAuctions;
+    }
+
+    @ManagedProperty(value = "#{AllAuctions}")
+    private AllAuctions allAuctions;
 
     public RegisterAuctionBean() {
 
         System.out.println("Init Data");
-        auction = new Auction();
         products = new ArrayList<>();
         productsModel = new CollectionDataModel<>(products);
+        durationType = new ArrayList<>();
+        durationType.add("Minutes");
+        durationType.add("Hours");
+        durationType.add("Days");
+    }
+
+    public boolean isCreatedAuction() {
+        if (auction == null)
+            return true;
+        return false;
     }
 
     public List<Product> getProducts() {
@@ -92,12 +115,34 @@ public class RegisterAuctionBean implements Serializable {
         this.auction = auction;
     }
 
-    public void createAuction() {
+    public String getAuctiontitle() {
+        return auctiontitle;
+    }
 
+    public void setAuctiontitle(String auctiontitle) {
+        this.auctiontitle = auctiontitle;
+    }
+
+    public String getAuctiondescription() {
+        return auctiondescription;
+    }
+
+    public void setAuctiondescription(String auctiondescription) {
+        this.auctiondescription = auctiondescription;
+    }
+
+
+    public void createAuction() {
+        auction = new Auction();
+        auction.setAuctiondescription(auctiondescription);
+        auction.setAuctiontitle(auctiontitle);
         String loca = LocalDateTime.now().toString().split("\\.")[0];
         LocalDateTime loc = LocalDateTime.parse(loca);
         auction.setAuctionStart(loc);
-        auction.setAuctionEnd(auction.getAuctionStart().plusHours(duration));
+
+        auction.setAuctionEnd(auction.getAuctionStart().plusMinutes(duration));
+//        createAuctionSessionBean.setAuction(auction);
+//        createAuctionSessionBean.createNewAuction();
         System.out.println(auction.getAuctionEnd());
     }
 
@@ -105,11 +150,38 @@ public class RegisterAuctionBean implements Serializable {
         products.add(product);
         productsModel.setWrappedData(products);
         product = new Product();
+
+
     }
 
     public void removeProduct() {
 
         products.remove(productsModel.getRowData());
         productsModel.setWrappedData(products);
+    }
+
+    public CreateAuctionSessionBean getCreateAuctionSessionBean() {
+        return createAuctionSessionBean;
+    }
+
+    public void setCreateAuctionSessionBean(CreateAuctionSessionBean createAuctionSessionBean) {
+        this.createAuctionSessionBean = createAuctionSessionBean;
+    }
+
+    public void done() {
+        if (products.size() > 0) {
+            auction.setActive(true);
+            auction.setProductsByAuctionId(products);
+            System.out.println("createAuctionSessionBean : -->" + createAuctionSessionBean);
+            System.out.println("loginBean : -->" + loginBean);
+            createAuctionSessionBean.setProducts(products);
+            createAuctionSessionBean.finishCreateAuction(auction, products, loginBean.getUser());
+            allAuctions.addNewAuction(auction);
+            auction = null;
+            products.clear();
+            auctiondescription = "";
+            auctiontitle = "";
+        }
+
     }
 }

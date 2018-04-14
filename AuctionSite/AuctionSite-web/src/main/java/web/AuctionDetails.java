@@ -120,6 +120,7 @@ public class AuctionDetails implements Serializable {
         auctionBids.clear();
         auction = manageAuctionSessionBean.getAuctionByID(selectedAuctionID);
         for (Product product : auction.getProductsByAuctionId()) {
+            System.out.println("the auction : "+auction.getAuctiontitle()+" has product --->"+product.getProductId()+" , "+product.getProductName());
             UserBidProduct temp = manageAuctionSessionBean.getMaxPid(auction, product);
             if (temp != null) {
                 auctionBids.add(temp);
