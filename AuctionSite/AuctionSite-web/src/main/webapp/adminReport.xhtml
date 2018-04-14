@@ -14,17 +14,18 @@
                         <h2>All Auctions</h2>
                         <div class="grid_3 grid_5">
                             <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
-
                                 <div id="myTabContent" class="tab-content">
                                     <div role="tabpanel" class="tab-pane fade in active" id="expeditions"
                                          aria-labelledby="expeditions-tab">
                                         <!--///////////////////////-->
                                         <center>
-                                        <table class="adminTable" style="width: 100%;">
-                                            <thead>
+                                        <table class="table" style="width: 100%;">
+                                            <thead class="thead-dark">
+                                            <tr>
                                                 <th>Auctions</th>
                                                 <th>Products</th>
                                                 <th>Users bidding auction</th>
+                                            </tr>
                                             </thead>
                                             <ui:repeat value="#{AdminAuctionsReport.model}" var="auction">
                                                 <tr>
