@@ -21,15 +21,11 @@ public class UserBidProductController {
     @Inject
     private UserMessageDao userMessageDao;
     @Inject
-    private AdminControlSessionBean adminControlSessionBean;
+    private AuctionDataSessionBean auctionDataSessionBean;
     @Inject
     private AuctionDao auctionDao;
 
-
     private final int EXTEND_TIME = 3;
-
-
-
 
     public void makeNewPid(Users users, Auction auction, Product product, Double amount) {
         new UserBidProduct(amount, auction, product, users);
@@ -64,19 +60,21 @@ public class UserBidProductController {
     }
 
     public boolean isHigherBidding(Product product, double bidValue) {
-        UserBidProduct userBidProduct = adminControlSessionBean.getHighestProductBid(product);
+        UserBidProduct userBidProduct = auctionDataSessionBean.getHighestProductBid(product);
         return userBidProduct != null && userBidProduct.getLastBid() < bidValue;
     }
 
     public void extendAuctionTime(Auction auction)
     {
-        LocalDateTime timeNow = LocalDateTime.now().plusMinutes(5);
+        LocalDateTime timeNow = LocalDateTime.now().plusMinutes(EXTEND_TIME);
         LocalDateTime end = auction.getAuctionEnd();
         if(timeNow.isAfter(end))
         {
-            auction.setAuctionEnd(auction.getAuctionEnd().plusMinutes(5));
+            auction.setAuctionEnd(auction.getAuctionEnd().plusMinutes(EXTEND_TIME));
             auctionDao.update(auction);
         }
     }
+
+    //Testing
 
 }

@@ -3,12 +3,14 @@ package model.dao;
 import model.entities.Auction;
 import model.entities.Product;
 import model.entities.UserBidProduct;
+import model.entities.Users;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -59,4 +61,19 @@ public class UserBidProductDao extends AbstractDao<UserBidProduct> {
             userBidProduct= userBidProductList.get(0);
         return userBidProduct;
     }
+
+    public List<UserBidProduct> getUserExpiredAuctionBids(Users user)
+    {
+        String loc = LocalDateTime.now().toString();
+        loc = loc.split("\\.")[0];
+        LocalDateTime localDateTime = LocalDateTime.parse(loc);
+
+        Query query = getEntityManager().createQuery("select u from UserBidProduct u where u.auctionByAuctionAuctionId.auctionEnd < :date and u.usersByUserUserId = :user");
+        query.setParameter("date" , localDateTime);
+        query.setParameter("user" , user);
+
+        List<UserBidProduct> userBidProducts = query.getResultList();
+        return userBidProducts;
+    }
+
 }

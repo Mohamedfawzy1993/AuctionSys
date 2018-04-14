@@ -49,6 +49,14 @@ public class RegisterAuctionBean implements Serializable {
     @ManagedProperty(value = "#{AllAuctions}")
     private AllAuctions allAuctions;
 
+    public List<String> getDurationType() {
+        return durationType;
+    }
+
+    public void setDurationType(List<String> durationType) {
+        this.durationType = durationType;
+    }
+
     public RegisterAuctionBean() {
 
         System.out.println("Init Data");
@@ -144,6 +152,7 @@ public class RegisterAuctionBean implements Serializable {
 //        createAuctionSessionBean.setAuction(auction);
 //        createAuctionSessionBean.createNewAuction();
         System.out.println(auction.getAuctionEnd());
+
     }
 
     public void addProduct() {
