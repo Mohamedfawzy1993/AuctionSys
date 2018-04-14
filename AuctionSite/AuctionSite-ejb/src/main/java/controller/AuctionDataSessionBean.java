@@ -2,7 +2,6 @@ package controller;
 
 import model.dao.ProductDao;
 import model.dao.UserBidProductDao;
-import model.dao.UserDao;
 import model.entities.Auction;
 import model.entities.Product;
 import model.entities.UserBidProduct;
@@ -10,7 +9,6 @@ import model.entities.Users;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.xml.registry.infomodel.User;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +30,6 @@ public class AuctionDataSessionBean {
                     highestBid = userBidProduct.getLastBid();
                     highestBidUser = userBidProduct;
                 }
-
             }
         return highestBidUser;
     }
@@ -68,20 +65,16 @@ public class AuctionDataSessionBean {
         List<Integer> scannedBids = new ArrayList<>();
 
 
-        System.out.println("UserBid is : "+userBidProducts == null);
-        if(userBidProducts != null && userBidProducts.size()>0)
-        {
-            for(UserBidProduct userBidProduct : userBidProducts)
-            {
-                if(!scannedBids.contains(userBidProduct.getProductByProductProductId().getProductId()))
-                {
-                    System.out.println("Product is :"+userBidProduct.getProductByProductProductId().getProductName());
+        System.out.println("UserBid is : " + userBidProducts == null);
+        if (userBidProducts != null && userBidProducts.size() > 0) {
+            for (UserBidProduct userBidProduct : userBidProducts) {
+                if (!scannedBids.contains(userBidProduct.getProductByProductProductId().getProductId())) {
+                    System.out.println("Product is :" + userBidProduct.getProductByProductProductId().getProductName());
                     UserBidProduct highestProductWinner = getHighestProductBid(userBidProduct.getProductByProductProductId());
-                    System.out.println("Highest Product Winner : "+highestProductWinner.getUsersByUserUserId().getUsername());
-                    System.out.println("Current User is : "+user.getUsername());
-                    System.out.println("Are They Equal : "+(highestProductWinner.getUsersByUserUserId() == user));
-                    if(highestProductWinner != null && highestProductWinner.getUsersByUserUserId().getUserId() == user.getUserId())
-                    {
+                    System.out.println("Highest Product Winner : " + highestProductWinner.getUsersByUserUserId().getUsername());
+                    System.out.println("Current User is : " + user.getUsername());
+                    System.out.println("Are They Equal : " + (highestProductWinner.getUsersByUserUserId() == user));
+                    if (highestProductWinner != null && highestProductWinner.getUsersByUserUserId().getUserId() == user.getUserId()) {
 
                         winnedBids.add(userBidProduct);
                     }
@@ -92,5 +85,8 @@ public class AuctionDataSessionBean {
         return winnedBids;
     }
 
+    public List<Product> usersProducts(Users users) {
+        return productDao.getAllUserProducts(users);
+    }
 
 }

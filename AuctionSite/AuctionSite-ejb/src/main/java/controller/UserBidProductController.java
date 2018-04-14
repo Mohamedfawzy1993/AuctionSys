@@ -28,15 +28,24 @@ public class UserBidProductController {
     private final int EXTEND_TIME = 3;
 
     public void makeNewPid(Users users, Auction auction, Product product, Double amount) {
-        new UserBidProduct(amount, auction, product, users);
-        userBidProductDao.create(new UserBidProduct(amount, auction, product, users));
-        System.out.println("Error Check");
+        UserBidProduct userBidProduct = userBidProductDao.getUserBidProductObject(users , product);
+        if(userBidProduct != null)
+        {
+            userBidProduct.setLastBid(amount);
+            userBidProductDao.update(userBidProduct);
+        }
+        else
+        {
+//            new UserBidProduct(amount, auction, product, users);
+            userBidProductDao.create(new UserBidProduct(amount, auction, product, users));
+            System.out.println("Error Check");
+        }
         notifyPrevPiders(auction, product, amount);
 
     }
 
     public void notifyPrevPiders(Auction auction, Product product, Double amount) {
-        List<UserBidProduct> userBidProductlist = userBidProductDao.getLastNBids(auction, product);
+        List<UserBidProduct> userBidProductlist = userBidProductDao.getAllProductBids(auction, product);
         List<Integer> userID = new ArrayList<>();
         int count = 0;
         for (UserBidProduct oldUserBidProduct : userBidProductlist) {
@@ -50,7 +59,6 @@ public class UserBidProductController {
                 userID.add(oldUserBidProduct.getUsersByUserUserId().getUserId());
             }
         }
-
     }
 
     public boolean isLastBidder(Product product, Users user) {

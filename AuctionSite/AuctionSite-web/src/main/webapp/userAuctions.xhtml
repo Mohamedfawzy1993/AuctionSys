@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+    <title>Title</title>
+</head>
+<body>
+<ui:composition template="template/mainTemp.xhtml">
+    <ui:define name="body">
+        <div class="container">
+            <f:view>
+                <ui:repeat value="#{userProducts.}" var="product">
+                    <!--<h:outputText value="#{product.productName}"/>-->
+                    <div class="col-sm-6">
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">#{product.productName} - #{product.auctionByAuctionAuctionId.auctiontitle}</h3>
+                            </div>
+                            <div class="panel-body">
+                                Auction Description : #{product.auctionByAuctionAuctionId.auctiondescription}
+                                <br/>
+                                Starting Price : #{product.sellStartPrice}
+                            </div>
+                            <div style="text-align: center;">
+                                <button type="button" class="btn btn-warning">View Details</button>
+
+                            </div>
+
+                            <br/>
+                        </div>
+                    </div>
+                </ui:repeat>
+            </f:view>
+        </div>
+    </ui:define>
+</ui:composition>
+</body>
+</html>
