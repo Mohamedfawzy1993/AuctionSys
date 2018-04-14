@@ -8,6 +8,7 @@ import model.entities.Product;
 import model.entities.UserBidProduct;
 import model.entities.Users;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.xml.registry.infomodel.User;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
+@LocalBean
 public class AuctionDataSessionBean {
 
     @Inject

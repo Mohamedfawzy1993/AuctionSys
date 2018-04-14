@@ -3390,4 +3390,17 @@ td.invert-image a img {
 .w3agile_description p {
     font-size: 13px;
 }
+.adminTable{
+    border: 2px solid #FFFFFF;
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+.adminProd ul li, .adminUsers ul li {
+    list-style:none;
+    float:left;
+    margin:20px;
+    padding:15px;
+    font-size: 20px;
+}
 }
