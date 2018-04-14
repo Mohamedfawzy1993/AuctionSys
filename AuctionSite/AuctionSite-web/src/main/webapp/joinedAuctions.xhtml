@@ -13,23 +13,20 @@
     <ui:define name="body">
         <div class="container">
             <f:view>
-                <ui:repeat value="#{userProducts.productDataModel}" var="product">
-                    <!--<h:outputText value="#{product.productName}"/>-->
+                <ui:repeat value="#{joinedAuctions.userBidProductList}" var="product">
                     <h:form>
                     <div class="col-sm-6">
                         <div class="panel panel-warning">
                             <div class="panel-heading">
-                                <h3 class="panel-title">#{product.productName} - #{product.auctionByAuctionAuctionId.auctiontitle}</h3>
+                                <h3 class="panel-title">#{product.productByProductProductId.productName} - #{product.auctionByAuctionAuctionId.auctiontitle}</h3>
                             </div>
                             <div class="panel-body">
                                 Auction Description : #{product.auctionByAuctionAuctionId.auctiondescription}
                                 <br/>
-                                Starting Price : #{product.sellStartPrice}
+                                Auction Status : #{joinedAuctions.status(product.auctionByAuctionAuctionId.auctionEnd)}
+                                <br/>
+                                Highest Bid : #{joinedAuctions.highestProductBid(product.productByProductProductId)}
                             </div>
-                            <div style="text-align: center;">
-                                <h:commandButton value="View Details" styleClass="btn btn-warning" action="#{userProducts.processProduct}"/>
-                            </div>
-
                             <br/>
                         </div>
                     </div>

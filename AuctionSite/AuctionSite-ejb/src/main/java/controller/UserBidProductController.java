@@ -72,8 +72,7 @@ public class UserBidProductController {
         return userBidProduct != null && userBidProduct.getLastBid() < bidValue;
     }
 
-    public void extendAuctionTime(Auction auction)
-    {
+    public void extendAuctionTime(Auction auction) {
         LocalDateTime timeNow = LocalDateTime.now().plusMinutes(EXTEND_TIME);
         LocalDateTime end = auction.getAuctionEnd();
         if(timeNow.isAfter(end))
@@ -82,7 +81,4 @@ public class UserBidProductController {
             auctionDao.update(auction);
         }
     }
-
-    //Testing
-
 }
