@@ -20,8 +20,8 @@ public class UserProducts {
     @Inject
     private AuctionDataSessionBean auctionDataSessionBean;
 
-    @Inject
-    private LoginBean loginBean;
+//    @Inject
+//    private LoginBean loginBean;
 
     List<Product> products = new ArrayList<>();
     DataModel<Product> productDataModel ;
@@ -29,16 +29,16 @@ public class UserProducts {
 
     }
 
-    @PostConstruct
-    private void initUserProducts()
-    {
-        System.out.println("init Product Object");
-        if(loginBean != null) {
-            products = auctionDataSessionBean.usersProducts(loginBean.getUser());
-            System.out.println(products.size());
-            productDataModel = new CollectionDataModel<>(products);
-        }
-    }
+//    @PostConstruct
+//    private void initUserProducts()
+//    {
+//        System.out.println("init Product Object");
+//        if(loginBean != null) {
+//            products = auctionDataSessionBean.usersProducts(loginBean.getUser());
+//            System.out.println(products.size());
+//            productDataModel = new CollectionDataModel<>(products);
+//        }
+//    }
 
 
     public List<Product> getProducts() {

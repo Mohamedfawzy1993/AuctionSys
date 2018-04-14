@@ -28,12 +28,13 @@ public class RegisterAuctionBean implements Serializable {
     private Auction auction;
     private int duration;
     private List<Product> products;
-    private List<String> durationType;
+    private List<String> durationTypeList;
     private Product product = new Product();
     private DataModel<Product> productsModel;
 
     private String auctiontitle;
     private String auctiondescription;
+    private String durationType;
 
     @ManagedProperty(value = "#{loginBean}")
     private LoginBean loginBean;
@@ -49,23 +50,16 @@ public class RegisterAuctionBean implements Serializable {
     @ManagedProperty(value = "#{AllAuctions}")
     private AllAuctions allAuctions;
 
-    public List<String> getDurationType() {
-        return durationType;
-    }
-
-    public void setDurationType(List<String> durationType) {
-        this.durationType = durationType;
-    }
 
     public RegisterAuctionBean() {
 
         System.out.println("Init Data");
         products = new ArrayList<>();
         productsModel = new CollectionDataModel<>(products);
-        durationType = new ArrayList<>();
-        durationType.add("Minutes");
-        durationType.add("Hours");
-        durationType.add("Days");
+        durationTypeList = new ArrayList<>();
+        durationTypeList.add("Minutes");
+        durationTypeList.add("Hours");
+        durationTypeList.add("Days");
     }
 
     public boolean isCreatedAuction() {
@@ -139,6 +133,37 @@ public class RegisterAuctionBean implements Serializable {
         this.auctiondescription = auctiondescription;
     }
 
+    public List<String> getDurationTypeList() {
+        return durationTypeList;
+    }
+
+    public void setDurationTypeList(List<String> durationTypeList) {
+        this.durationTypeList = durationTypeList;
+    }
+
+    public String getDurationType() {
+        return durationType;
+    }
+
+    public void setDurationType(String durationType) {
+        this.durationType = durationType;
+    }
+
+    public int durationInMinutes() {
+        int res = 0;
+        switch (durationType) {
+            case "Days":
+                res = duration * 24 * 60;
+                break;
+            case "Hours":
+                res = duration * 60;
+                break;
+            default:
+                res = duration;
+        }
+        return res;
+    }
+
 
     public void createAuction() {
         auction = new Auction();
@@ -147,24 +172,27 @@ public class RegisterAuctionBean implements Serializable {
         String loca = LocalDateTime.now().toString().split("\\.")[0];
         LocalDateTime loc = LocalDateTime.parse(loca);
         auction.setAuctionStart(loc);
-
-        auction.setAuctionEnd(auction.getAuctionStart().plusMinutes(duration));
-//        createAuctionSessionBean.setAuction(auction);
-//        createAuctionSessionBean.createNewAuction();
+        auction.setAuctionEnd(auction.getAuctionStart().plusMinutes(durationInMinutes()));
+        System.out.println(auction + "actionType" + durationType);
+        createAuctionSessionBean.setAuction(auction);
+        createAuctionSessionBean.createNewAuction();
         System.out.println(auction.getAuctionEnd());
 
     }
 
     public void addProduct() {
-        products.add(product);
-        productsModel.setWrappedData(products);
-        product = new Product();
-
+        if (product.getProductName() != null && product.getProductName() != "" && !product.getProductName().isEmpty()) {
+            System.out.println("product.getProductName()--->>"+product.getProductName());
+            products.add(product);
+            System.out.println("products in addProduct() : -->" + products);
+            productsModel.setWrappedData(products);
+            product = new Product();
+        }
 
     }
 
     public void removeProduct() {
-
+        System.out.println("/**/*/**/*/*/*/*/  removeProduct() /*/**/**/*/*/*//*");
         products.remove(productsModel.getRowData());
         productsModel.setWrappedData(products);
     }
@@ -183,6 +211,7 @@ public class RegisterAuctionBean implements Serializable {
             auction.setProductsByAuctionId(products);
             System.out.println("createAuctionSessionBean : -->" + createAuctionSessionBean);
             System.out.println("loginBean : -->" + loginBean);
+            System.out.println("products : -->" + products);
             createAuctionSessionBean.setProducts(products);
             createAuctionSessionBean.finishCreateAuction(auction, products, loginBean.getUser());
             allAuctions.addNewAuction(auction);
