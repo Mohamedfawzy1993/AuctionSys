@@ -8,8 +8,5 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="GlassFish 4.1.21 - EJB" level="application_server_libraries" />
-    <orderEntry type="library" scope="PROVIDED" name="WorkingGlassFish - EJB" level="application_server_libraries" />
-    <orderEntry type="library" scope="PROVIDED" name="WorkingGlassFish - JSF" level="application_server_libraries" />
   </component>
 </module>
