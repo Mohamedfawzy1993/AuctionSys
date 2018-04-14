@@ -101,7 +101,7 @@ public class Product {
     }
 
     @ManyToOne
-    @JoinColumn(name = "product_category_category_id", referencedColumnName = "category_id", nullable = false)
+    @JoinColumn(name = "product_category_category_id", referencedColumnName = "category_id", nullable = true)
     public ProductCategory getProductCategoryByProductCategoryCategoryId() {
         return productCategoryByProductCategoryCategoryId;
     }

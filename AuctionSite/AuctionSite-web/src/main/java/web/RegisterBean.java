@@ -62,9 +62,6 @@ public class RegisterBean {
         registeredUser.setBalance(100.0);
         registrationSessionBean.setUser(registeredUser);
         registrationSessionBean.addUserToDatabase();
-//        loginBeanUser.setUser(registeredUser);
-//        loginBeanUser.setEmail(registeredUser.getEmail());
-//        loginBeanUser.setPassword(registeredUser.getPassword());
         return "login";
 
     }

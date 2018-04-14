@@ -76,5 +76,10 @@ public class AllAuctions implements Serializable {
     }
 
 
+    public void addNewAuction(Auction auc) {
+        auctionsList.add(auc);
+        model.setWrappedData(auctionsList);
 
+
+    }
 }

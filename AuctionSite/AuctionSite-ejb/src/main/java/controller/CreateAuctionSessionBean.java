@@ -7,6 +7,7 @@ import model.entities.Auction;
 import model.entities.Product;
 import model.entities.UserBidProduct;
 import model.entities.Users;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -55,26 +56,37 @@ public class CreateAuctionSessionBean implements Serializable {
         this.user = user;
     }
 
-    public boolean createNewAuction() {
-
-        if (user == null || auction == null || products == null) {
+    public boolean finishCreateAuction(Auction a, List<Product> ps,Users u) {
+        if (a == null || ps == null || u == null) {
             return false;
         }
-
-        auction.setActive(false);
-        auctionDao.create(auction);
-
-        boolean persistResult = createProducts(auction);
+        auctionDao.update(a);
+        user=u;
+        boolean persistResult = createProducts(a);
         if (persistResult) {
-            auction.setProductsByAuctionId(products);
-            auction.setActive(true);
+            a.setProductsByAuctionId(ps);
+            a.setActive(true);
             auctionDao.update(auction);
             createDefaultBids();
             persistResult = true;
         } else {
             persistResult = false;
         }
+
         return persistResult;
+    }
+
+    public boolean createNewAuction() {
+
+        if (auction == null) {
+            return false;
+        }
+
+        auction.setActive(false);
+        auctionDao.create(auction);
+
+
+        return true;
     }
 
     private boolean createProducts(Auction auction) {
@@ -93,10 +105,8 @@ public class CreateAuctionSessionBean implements Serializable {
     }
 
     private void createDefaultBids() {
-        for(Product product : products)
-        {
-            if(product != null)
-            {
+        for (Product product : products) {
+            if (product != null) {
                 UserBidProduct userBidProduct = new UserBidProduct();
                 userBidProduct.setAuctionByAuctionAuctionId(auction);
                 userBidProduct.setProductByProductProductId(product);

@@ -47,8 +47,8 @@ public class AuctionDao extends AbstractDao<Auction> {
     public UserBidProduct getMaxPidForProductInAuction(Auction auction, Product product) {
 
         UserBidProduct userBidProduct = null;
-        Query query = getEntityManager().createQuery("select ubp from UserBidProduct ubp where ubp.lastBid = (select max(ubp2.lastBid) from UserBidProduct ubp2 where ubp2.auctionByAuctionAuctionId = :auction and ubp2.productByProductProductId=:product)");
-        query.setParameter("auction", auction).setParameter("product", product);
+        Query query = getEntityManager().createQuery("select ubp from UserBidProduct ubp where ubp.auctionByAuctionAuctionId = :auction and ubp.productByProductProductId=:product and ubp.lastBid = (select max(ubp2.lastBid) from UserBidProduct ubp2 where ubp2.auctionByAuctionAuctionId = :sub_auction and ubp2.productByProductProductId=:sub_product)");
+        query.setParameter("auction", auction).setParameter("product", product).setParameter("sub_auction", auction).setParameter("sub_product", product);
         List<UserBidProduct> userBidProductList = query.getResultList();
         if (userBidProductList.size() > 0) {
             userBidProduct = userBidProductList.get(0);
