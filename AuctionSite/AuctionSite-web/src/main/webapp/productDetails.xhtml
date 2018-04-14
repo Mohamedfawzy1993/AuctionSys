@@ -13,28 +13,31 @@
     <ui:define name="body">
         <div class="container">
             <f:view>
-                <ui:repeat value="#{userProducts.productDataModel}" var="product">
-                    <!--<h:outputText value="#{product.productName}"/>-->
-                    <h:form>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="panel panel-warning">
                             <div class="panel-heading">
-                                <h3 class="panel-title">#{product.productName} - #{product.auctionByAuctionAuctionId.auctiontitle}</h3>
+                                <h3 class="panel-title">#{viewProduct.userProducts.product.productName} - #{viewProduct.userProducts.product.auctionByAuctionAuctionId.auctiontitle}</h3>
                             </div>
                             <div class="panel-body">
-                                Auction Description : #{product.auctionByAuctionAuctionId.auctiondescription}
+                                <img alt="Product Image" src="#{viewProduct.product.productImg}"/>
                                 <br/>
-                                Starting Price : #{product.sellStartPrice}
+                                <br/>
+                                Auction Description : #{viewProduct.product.auctionByAuctionAuctionId.auctiondescription}
+                                <br/>
+                                Starting Price : #{viewProduct.product.sellStartPrice}
+                                <br/>
+                                Product Highest Bid is  : #{viewProduct.highestBid.lastBid}
+                                <br/>
+                                Auction Start Time : #{viewProduct.formater(viewProduct.product.auctionByAuctionAuctionId.auctionStart)}
+                                <br/>
+                                Auction End Time : #{viewProduct.formater(viewProduct.product.auctionByAuctionAuctionId.auctionEnd)}
+                                <br/>
                             </div>
                             <div style="text-align: center;">
-                                <h:commandButton value="View Details" styleClass="btn btn-warning" action="#{userProducts.processProduct}"/>
                             </div>
-
                             <br/>
                         </div>
                     </div>
-                    </h:form>
-                </ui:repeat>
             </f:view>
         </div>
     </ui:define>
