@@ -5,17 +5,17 @@ import controller.AuctionDataSessionBean;
 import model.entities.Product;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Named("userProducts")
 @RequestScoped
-public class UserProducts {
+public class UserProducts implements Serializable{
 
     @Inject
     private AuctionDataSessionBean auctionDataSessionBean;
@@ -23,15 +23,18 @@ public class UserProducts {
     @Inject
     private LoginBean loginBean;
 
+
     List<Product> products = new ArrayList<>();
     DataModel<Product> productDataModel ;
+    private Product product;
+
+
     public UserProducts() {
 
     }
 
     @PostConstruct
-    private void initUserProducts()
-    {
+    private void initUserProducts() {
         System.out.println("init Product Object");
         if(loginBean != null) {
             products = auctionDataSessionBean.usersProducts(loginBean.getUser());
@@ -55,5 +58,18 @@ public class UserProducts {
 
     public void setProductDataModel(DataModel<Product> productDataModel) {
         this.productDataModel = productDataModel;
+    }
+
+    public String processProduct() {
+        product = productDataModel.getRowData();
+        return "productDetails";
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

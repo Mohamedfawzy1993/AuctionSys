@@ -4,8 +4,6 @@ import controller.UserMessageController;
 import model.entities.UserMessage;
 import model.entities.Users;
 import controller.LoginSessionBean;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
@@ -15,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@ManagedBean(name = "loginBean")
-@SessionScoped
+@Named(value = "loginBean")
+@javax.enterprise.context.SessionScoped
 public class LoginBean implements Serializable {
 
     @Inject

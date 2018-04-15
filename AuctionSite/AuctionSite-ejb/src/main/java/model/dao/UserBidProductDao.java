@@ -78,10 +78,23 @@ public class UserBidProductDao extends AbstractDao<UserBidProduct> {
     public UserBidProduct getUserBidProductObject(Users users, Product product) {
         Query query = entityManager.createQuery("select u from UserBidProduct u where" +
                 " u.usersByUserUserId = :user and u.productByProductProductId = :product ");
+        query.setParameter("user" , users);
+        query.setParameter("product" , product);
         List<UserBidProduct> userBidProduct = query.getResultList();
         if (userBidProduct != null && userBidProduct.size() > 0)
             return userBidProduct.get(0);
         else
             return null;
     }
+
+    public List<UserBidProduct> getAllJoinedAuctions(Users users)
+    {
+        Query query = getEntityManager().createQuery("select u from UserBidProduct u " +
+                "where u.usersByUserUserId = :joinedUser and u.productByProductProductId.usersByUsersUserId <> :userOwner");
+        query.setParameter("joinedUser" , users);
+        query.setParameter("userOwner" , users);
+        return query.getResultList();
+
+    }
+
 }

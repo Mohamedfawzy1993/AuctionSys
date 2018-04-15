@@ -89,4 +89,8 @@ public class AuctionDataSessionBean {
         return productDao.getAllUserProducts(users);
     }
 
+    public List<UserBidProduct> getAllJoinedAuctions(Users users)
+    {
+        return userBidProductDao.getAllJoinedAuctions(users);
+    }
 }
