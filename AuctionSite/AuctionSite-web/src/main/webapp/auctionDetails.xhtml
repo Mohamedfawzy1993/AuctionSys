@@ -1,51 +1,68 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <h:head/>
 
-<h:body>
-    <f:view>
+<ui:composition template="template/mainTemp.xhtml">
+    <ui:define name="body">
+        <f:loadBundle basename="messages" var="msgs"/>
+        <div class="login">
+            <div class="container">
+                <h2>#{AuctionDetails.auction.auctiontitle}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <h:form id="AuctionDetailsTableForm">
+                    <h:dataTable id="AuctionDetailsTable" value="#{AuctionDetails.model}" var="auctionDetail"
+                                 styleClass="table table-striped table-hover">
+                        <h:column>
+                            <f:facet name="header">Product</f:facet>
+                            <h:outputText styleClass="form-control"
+                                          value="#{auctionDetail.productByProductProductId.productName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">lastPid</f:facet>
+                            <h:outputText styleClass="form-control" value="#{auctionDetail.lastBid}"/>
+                        </h:column>
+                        <h:column rendered='#{loginBean.user.role.equalsIgnoreCase("admin")}'>
+                            <f:facet name="header">Pider</f:facet>
+                            <h:outputText styleClass="form-control"
+                                          value="#{auctionDetail.usersByUserUserId.username}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Make Your Pid</f:facet>
+                            <h:inputText pt:type="number" pt:min="#{auctionDetail.lastBid+5}" styleClass="form-control"
+                                         style="color: #FFFFFF;background-color: #fe9126"
+                                         value="#{auctionDetail.lastBid}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Temp</f:facet>
+                            #{auctionDetail.productByProductProductId.usersByUsersUserId.email} , #{auctionDetail.usersByUserUserId.email} , #{loginBean.user.email}
+                        </h:column>
+                        <h:column
+                                rendered='#{! auctionDetail.productByProductProductId.usersByUsersUserId.email.equalsIgnoreCase(loginBean.user.email.toString())}'>
+                            <f:facet name="header">Action</f:facet>
+                            <h:commandButton styleClass="btn btn-primary" value="Pid" disabled='#{auctionDetail.usersByUserUserId.email.equalsIgnoreCase(loginBean.user.email.toString())
+                            or
+                            auctionDetail.productByProductProductId.usersByUsersUserId.email.equalsIgnoreCase(loginBean.user.email.toString())
+                             }'
+                                             action="#{AuctionDetails.makeBid(auctionDetail)}"/>
 
-        <h:form>
-            <br/>
-            <br/>
-            <br/>
-            <h:dataTable value="#{AuctionDetails.model}" var="auctionDetail">
-                <h:column>
-                    <f:facet name="header">Product</f:facet>
-                    <h:outputText value="#{auctionDetail.productByProductProductId.productName}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">lastPid</f:facet>
-                    <h:outputText value="#{auctionDetail.lastBid}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">lastPid</f:facet>
-                    <h:inputText value="#{auctionDetail.lastBid}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Action</f:facet>
-                    <h:commandLink value="Pid" action="#{AuctionDetails.makeBid(auctionDetail)}"/>
-                </h:column>
-            </h:dataTable>
-
-        </h:form>
-    </f:view>
-    <h:form>
-        <h:dataTable id="txt_count" value="#{loginBean.model}" var="mes">
-            <h:column>
-                <f:facet name="header">Message</f:facet>
-                <h:outputText value="#{mes.message}"/>
-            </h:column>
-        </h:dataTable>
-
-        <!--<h:outputText id="txt_count" value="#{loginBean.number}"/>-->
-        <p:poll interval="5" listener="#{loginBean.getMassges}" update="txt_count"/>
-    </h:form>
-</h:body>
+                        </h:column>
+                    </h:dataTable>
+                    <p:poll interval="30" listener="#{AuctionDetails.updateDetailes}" update="AuctionDetailsTable"/>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
 </html>
+

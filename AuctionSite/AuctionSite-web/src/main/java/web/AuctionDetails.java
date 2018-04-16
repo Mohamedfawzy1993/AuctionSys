@@ -120,7 +120,7 @@ public class AuctionDetails implements Serializable {
         auctionBids.clear();
         auction = manageAuctionSessionBean.getAuctionByID(selectedAuctionID);
         for (Product product : auction.getProductsByAuctionId()) {
-            System.out.println("the auction : "+auction.getAuctiontitle()+" has product --->"+product.getProductId()+" , "+product.getProductName());
+            System.out.println("the auction : " + auction.getAuctiontitle() + " has product --->" + product.getProductId() + " , " + product.getProductName());
             UserBidProduct temp = manageAuctionSessionBean.getMaxPid(auction, product);
             if (temp != null) {
                 auctionBids.add(temp);
@@ -148,7 +148,7 @@ public class AuctionDetails implements Serializable {
         auction = newPid.getAuctionByAuctionAuctionId();
         userBidProductController.makeNewPid(loginBeanUser.getUser(), auction, newPid.getProductByProductProductId(), newPid.getLastBid());
         //we will use this paet if not ui updateble
-        /*
+
         auctionBids.clear();
         for (Product product : auction.getProductsByAuctionId()) {
             UserBidProduct temp = manageAuctionSessionBean.getMaxPid(auction, product);
@@ -157,8 +157,21 @@ public class AuctionDetails implements Serializable {
             }
         }
         model = new ListDataModel<UserBidProduct>(auctionBids);
-*/
+
         return "auctionDetails";
     }
+
+    public void updateDetailes() {
+        System.out.println(" xxxxxxxxxxxxxxxxxxxx updateDetailes xxxxxxxxxxxxxxxxxxxxx ");
+        auctionBids.clear();
+        for (Product product : auction.getProductsByAuctionId()) {
+            UserBidProduct temp = manageAuctionSessionBean.getMaxPid(auction, product);
+            if (temp != null) {
+                auctionBids.add(temp);
+            }
+        }
+        model = new ListDataModel<UserBidProduct>(auctionBids);
+    }
+
 
 }
