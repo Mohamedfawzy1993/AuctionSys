@@ -15,6 +15,8 @@ import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Named(value = "AllAuctions")
@@ -81,5 +83,10 @@ public class AllAuctions implements Serializable {
         model.setWrappedData(auctionsList);
 
 
+    }
+
+    public String formater(LocalDateTime localDateTime)
+    {
+        return localDateTime.format(DateTimeFormatter.ofPattern("EEEE MMM dd yyyy hh:mm:ss a"));
     }
 }

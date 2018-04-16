@@ -29,19 +29,22 @@ public class UserBidProductController {
 
     public void makeNewPid(Users users, Auction auction, Product product, Double amount) {
         UserBidProduct userBidProduct = userBidProductDao.getUserBidProductObject(users , product);
-        if(userBidProduct != null)
-        {
-            userBidProduct.setLastBid(amount);
-            userBidProductDao.update(userBidProduct);
-        }
-        else
-        {
-//            new UserBidProduct(amount, auction, product, users);
-            userBidProductDao.create(new UserBidProduct(amount, auction, product, users));
-            System.out.println("Error Check");
-        }
-        notifyPrevPiders(auction, product, amount);
 
+        if(auction.getAuctionEnd().isBefore(LocalDateTime.now()))
+        {
+
+            if(userBidProduct != null)
+            {
+                userBidProduct.setLastBid(amount);
+                userBidProductDao.update(userBidProduct);
+            }
+            else
+            {
+                userBidProductDao.create(new UserBidProduct(amount, auction, product, users));
+                System.out.println("Error Check");
+            }
+            notifyPrevPiders(auction, product, amount);
+        }
     }
 
     public void notifyPrevPiders(Auction auction, Product product, Double amount) {

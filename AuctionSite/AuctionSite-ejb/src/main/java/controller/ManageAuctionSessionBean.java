@@ -45,5 +45,10 @@ public class ManageAuctionSessionBean {
     }
 
 
+    public List<Auction> getAllAuctions() {
+        return auctionDao.getAuctions();
+
+    }
+
 }
 

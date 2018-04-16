@@ -19,19 +19,31 @@
                                 <h3 class="panel-title">#{viewProduct.userProducts.product.productName} - #{viewProduct.userProducts.product.auctionByAuctionAuctionId.auctiontitle}</h3>
                             </div>
                             <div class="panel-body">
-                                <img alt="Product Image" src="#{viewProduct.product.productImg}"/>
-                                <br/>
-                                <br/>
-                                Auction Description : #{viewProduct.product.auctionByAuctionAuctionId.auctiondescription}
-                                <br/>
-                                Starting Price : #{viewProduct.product.sellStartPrice}
-                                <br/>
-                                Product Highest Bid is  : #{viewProduct.highestBid.lastBid}
-                                <br/>
-                                Auction Start Time : #{viewProduct.formater(viewProduct.product.auctionByAuctionAuctionId.auctionStart)}
-                                <br/>
-                                Auction End Time : #{viewProduct.formater(viewProduct.product.auctionByAuctionAuctionId.auctionEnd)}
-                                <br/>
+                                <img alt="#{msg.productImg}" src="#{viewProduct.product.productImg}"/>
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr>
+                                        <td>#{msg.auctionDescField}</td>
+                                        <td>#{viewProduct.product.auctionByAuctionAuctionId.auctiondescription}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#{msg.startPrice}</td>
+                                        <td>#{viewProduct.product.sellStartPrice}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#{msg.prodHighBid}</td>
+                                        <td>#{viewProduct.highestBid.lastBid}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> #{msg.aucStartTime}</td>
+                                        <td>#{viewProduct.formater(viewProduct.product.auctionByAuctionAuctionId.auctionStart)}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> #{msg.aucEndTime}</td>
+                                        <td>#{viewProduct.formater(viewProduct.product.auctionByAuctionAuctionId.auctionEnd)}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div style="text-align: center;">
                             </div>

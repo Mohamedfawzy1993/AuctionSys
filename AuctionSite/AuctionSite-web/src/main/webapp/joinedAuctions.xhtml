@@ -13,7 +13,11 @@
     <ui:define name="body">
         <div class="container">
             <f:view>
-                <h2>Auctions you Joined</h2>
+                <div class="login">
+                    <div class="container">
+                        <h2>#{msg.userJoinedAuctionsTitle}</h2>
+                    </div>
+                </div>
                 <ui:repeat value="#{joinedAuctions.userBidProductList}" var="product">
                     <h:form>
                     <div class="col-sm-6">
@@ -22,11 +26,11 @@
                                 <h3 class="panel-title">#{product.productByProductProductId.productName} - #{product.auctionByAuctionAuctionId.auctiontitle}</h3>
                             </div>
                             <div class="panel-body">
-                                Auction Description : #{product.auctionByAuctionAuctionId.auctiondescription}
+                               #{msg.auctionDescField} : #{product.auctionByAuctionAuctionId.auctiondescription}
                                 <br/>
-                                Auction Status : #{joinedAuctions.status(product.auctionByAuctionAuctionId.auctionEnd)}
+                                #{msg.aucEndTime} : #{joinedAuctions.status(product.auctionByAuctionAuctionId.auctionEnd)}
                                 <br/>
-                                Highest Bid : #{joinedAuctions.highestProductBid(product.productByProductProductId)}
+                                #{msg.prodHighBid} : #{joinedAuctions.highestProductBid(product.productByProductProductId)}
                             </div>
                             <br/>
                         </div>
