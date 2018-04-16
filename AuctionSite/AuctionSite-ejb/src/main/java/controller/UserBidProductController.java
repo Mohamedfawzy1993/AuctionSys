@@ -52,9 +52,9 @@ public class UserBidProductController {
             if(!userID.contains(oldUserBidProduct.getUsersByUserUserId().getUserId()) && count < 5)
             {
                 count++;
-                userMessageDao.create(new UserMessage("product : "+product.getProductName()+""
-                        +"in Auction"+auction.getAuctiontitle()+
-                        "got new bid with Value"+amount,
+                userMessageDao.create(new UserMessage("product : "+product.getProductName()+"   "
+                        +"in Auction : "+auction.getAuctiontitle()+
+                        "   has gotten new bid with   Value : "+amount,
                         oldUserBidProduct.getUsersByUserUserId() , true));
                 userID.add(oldUserBidProduct.getUsersByUserUserId().getUserId());
             }

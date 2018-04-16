@@ -4,6 +4,9 @@ import controller.UserMessageController;
 import model.entities.UserMessage;
 import model.entities.Users;
 import controller.LoginSessionBean;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
@@ -30,6 +33,7 @@ public class LoginBean implements Serializable {
 
     private int number = 100;
     private List<UserMessage> userMessages = new ArrayList<>();
+    private List<UserMessage> userMessagesNotification = new ArrayList<>();
 
     public LoginBean() {
         model = new ListDataModel<UserMessage>(userMessages);
@@ -111,13 +115,20 @@ public class LoginBean implements Serializable {
         return number;
     }
 
+    public void getMassgesAsNOtification() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        for ( UserMessage mess:  userMessagesNotification){
+        context.addMessage(null, new FacesMessage("New bid",  mess.getMessage()) );
+        }
+        userMessagesNotification.clear();
+
+    }
     public void getMassges() {
-//        System.out.println("Incrementing....");
-//            System.out.println("========== user message ========"+user.getUsername());
         if (user != null) {
 
             for ( UserMessage mess:  userMessageController.getMessagesOfUser(user)){
                 userMessages.add(mess);
+                userMessagesNotification.add(mess);
                 System.out.println("User ->"+user+" , Message"+mess.getMessage());
                 System.out.println(userMessages);
             }
