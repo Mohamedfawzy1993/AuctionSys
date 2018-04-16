@@ -24,6 +24,9 @@ public class ViewProductDetailsBean implements Serializable {
     @Inject
     private AuctionDataSessionBean auctionDataSessionBean;
 
+    @Inject
+    private LoginBean loginBean;
+
     private UserBidProduct highestBid;
 
     private Product product;
@@ -41,6 +44,10 @@ public class ViewProductDetailsBean implements Serializable {
             if(product != null)
             {
                 highestBid = auctionDataSessionBean.getHighestProductBid(product);
+                if(highestBid != null && highestBid.getUsersByUserUserId().getUserId() == loginBean.getUser().getUserId())
+                {
+                    highestBid = null;
+                }
             }
         }
     }
