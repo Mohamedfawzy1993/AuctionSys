@@ -65,7 +65,7 @@ public class AdminAuctionsReport implements Serializable {
 
     @PostConstruct
     public void init(){
-        auctionsList = manageAuctionSessionBean.getAllActiveAuctions();
+        auctionsList = manageAuctionSessionBean.getAllAuctions();
         model = new ListDataModel<Auction>(auctionsList);
     }
 

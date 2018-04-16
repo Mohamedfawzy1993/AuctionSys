@@ -3,38 +3,41 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+
 <ui:composition template="template/mainTemp.xhtml">
     <ui:define name="body">
-
-
+        <f:loadBundle basename="messages" var="msgs"/>
+        <f:view>
 
         <div class="login">
             <div class="container">
-                <h2>Login Form</h2>
+                <h2>#{msg.loginTitle}</h2>
                 <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
                     <h:form prependId="false">
                         <h:inputText value="#{loginBean.email}" id="email" requiredMessage="Email is required" style="color: #fe9126"
-                                     required="true" validator="#{AjaxValidator.validateName}">
+                                     required="true" validator="#{AjaxValidator.validateName}" styleClass="#{msgs.dirmessage}">
                             <f:validateRequired/>
                             <f:ajax event="blur" execute="@this" render="emailError"/>
                         </h:inputText>
-                        <h:message for="email" id="emailError" style="color:red"></h:message>
-                        <h:inputSecret id="password" requiredMessage="Password is required" value="#{loginBean.password}"
+                        <h:message styleClass="#{msgs.dirmessage}" for="email" id="emailError" style="color:red"></h:message>
+                        <h:inputSecret styleClass="#{msgs.dirmessage}" id="password" requiredMessage="Password is required" value="#{loginBean.password}"
                                        style="color: #fe9126" required="true"/>
-                        <h:message for="password" id="passworderror" style="color:red"></h:message>
-                        <h:commandButton styleClass="login" type="submit" value="LogIn"
+                        <h:message styleClass="#{msgs.dirmessage}" for="password" id="passworderror" style="color:red"></h:message>
+                        <h:commandButton styleClass="#{msgs.dirmessage}" type="submit" value="#{msgs.loginbar}"
                                          action="#{loginBean.verifyUser}"/>
                     </h:form>
                 </div>
-                <h4>For New People</h4>
-                <p><h:link outcome="register" value="Register Here"/> (Or) go back to <h:link outcome="index">Home<span
-                        class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></h:link>></p>
+                <h4>#{msg.forNewPeeople}</h4>
+                <p><h:link outcome="register" value="#{msgs.registerTitle}"/> (#{msg.orTitle})<h:link outcome="index"> #{msgs.home}</h:link>></p>
             </div>
         </div>
 
-
+        </f:view>
     </ui:define>
 </ui:composition>
 </html>

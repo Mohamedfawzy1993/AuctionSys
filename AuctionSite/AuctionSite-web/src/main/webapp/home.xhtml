@@ -12,7 +12,7 @@
             <h:form>
                 <div class="top-brands">
                     <div class="container">
-                        <h2>Top Offered Auctions</h2>
+                        <h2>#{msg.auctionHomeTitle}</h2>
                         <div class="grid_3 grid_5">
                             <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 
@@ -39,7 +39,7 @@
                                                                                      src="images/#{auction.auctionId}.png"/>
                                                                             </h:commandLink>
                                                                             <p>#{auction.auctiontitle}</p>
-                                                                            <h4>EndTime #{auction.auctionEnd}</h4>
+                                                                            <h4>#{msg.aucEndTime} #{AllAuctions.formater(auction.auctionEnd)}</h4>
                                                                         </div>
                                                                         <div class="snipcart-details top_brand_home_details">
                                                                             <fieldset>
@@ -47,7 +47,7 @@
                                                                                         action="#{AuctionDetails.goToAuction()}">
                                                                                     <f:param name="selectedAuction"
                                                                                              value="#{auction.auctionId}"/>
-                                                                                    <h1>View </h1>
+                                                                                    <h1>#{msg.view} </h1>
                                                                                 </h:commandLink>
                                                                             </fieldset>
                                                                         </div>

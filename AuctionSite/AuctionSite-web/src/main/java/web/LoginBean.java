@@ -116,15 +116,16 @@ public class LoginBean implements Serializable {
 //            System.out.println("========== user message ========"+user.getUsername());
         if (user != null) {
 
-            for ( UserMessage mess:  userMessageController.getMessagesOfUser(user)){
+            for (UserMessage mess : userMessageController.getMessagesOfUser(user)) {
                 userMessages.add(mess);
-                System.out.println("User ->"+user+" , Message"+mess.getMessage());
+                System.out.println("User ->" + user + " , Message" + mess.getMessage());
                 System.out.println(userMessages);
             }
         }
         userMessageController.deleteMessagesOfUser(user);
         number++;
     }
+
     public boolean isLogin() {
         if (this.user == null) {
             return false;
@@ -132,4 +133,14 @@ public class LoginBean implements Serializable {
 
         return true;
     }
+
+    public String logout() {
+        user = null;
+        return "home";
+    }
+
+    public boolean isAdmin() {
+        return this.user != null && user.getRole().equals("admin");
+    }
+
 }

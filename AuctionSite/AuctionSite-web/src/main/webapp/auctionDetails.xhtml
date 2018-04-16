@@ -24,35 +24,37 @@
                     <h:dataTable id="AuctionDetailsTable" value="#{AuctionDetails.model}" var="auctionDetail"
                                  styleClass="table table-striped table-hover">
                         <h:column>
-                            <f:facet name="header">Product</f:facet>
+                            <f:facet name="header">#{msg.productTableField}</f:facet>
                             <h:outputText styleClass="form-control"
                                           value="#{auctionDetail.productByProductProductId.productName}"/>
                         </h:column>
                         <h:column>
-                            <f:facet name="header">lastPid</f:facet>
+                            <f:facet name="header">#{msg.lastpidTableField}</f:facet>
                             <h:outputText styleClass="form-control" value="#{auctionDetail.lastBid}"/>
                         </h:column>
                         <h:column rendered='#{loginBean.user.role.equalsIgnoreCase("admin")}'>
-                            <f:facet name="header">Pider</f:facet>
+                            <f:facet name="header">#{msg.lastBidder}</f:facet>
                             <h:outputText styleClass="form-control"
                                           value="#{auctionDetail.usersByUserUserId.username}"/>
                         </h:column>
                         <h:column>
-                            <f:facet name="header">Make Your Pid</f:facet>
+                            <f:facet name="header">#{msg.makeYourPidTableField}</f:facet>
                             <h:inputText pt:type="number" pt:min="#{auctionDetail.lastBid+5}" styleClass="form-control"
                                          style="color: #FFFFFF;background-color: #fe9126"
                                          value="#{auctionDetail.lastBid}"/>
                         </h:column>
                         <h:column>
-                            <f:facet name="header">Temp</f:facet>
+                            <f:facet name="header"></f:facet>
                             #{auctionDetail.productByProductProductId.usersByUsersUserId.email} , #{auctionDetail.usersByUserUserId.email} , #{loginBean.user.email}
                         </h:column>
                         <h:column
                                 rendered='#{! auctionDetail.productByProductProductId.usersByUsersUserId.email.equalsIgnoreCase(loginBean.user.email.toString())}'>
-                            <f:facet name="header">Action</f:facet>
-                            <h:commandButton styleClass="btn btn-primary" value="Pid" disabled='#{auctionDetail.usersByUserUserId.email.equalsIgnoreCase(loginBean.user.email.toString())
+                            <f:facet name="header"></f:facet>
+                            <h:commandButton styleClass="btn btn-primary" value="#{msg.pidField}" disabled='#{auctionDetail.usersByUserUserId.email.equalsIgnoreCase(loginBean.user.email.toString())
                             or
                             auctionDetail.productByProductProductId.usersByUsersUserId.email.equalsIgnoreCase(loginBean.user.email.toString())
+                            or
+                            loginBean.login==false
                              }'
                                              action="#{AuctionDetails.makeBid(auctionDetail)}"/>
 

@@ -13,29 +13,33 @@
     <ui:define name="body">
         <div class="container">
             <f:view>
-                <h2>User Created Auctions</h2>
+                <div class="login">
+                    <div class="container">
+                        <h2>#{msg.userAuctionsTitle}</h2>
+                    </div>
+                </div>
                 <ui:repeat value="#{userProducts.productDataModel}" var="product">
-                    <!--<h:outputText value="#{product.productName}"/>-->
-                    <h:form>
+                <!--<h:outputText value="#{product.productName}"/>-->
+                <h:form>
                     <div class="col-sm-6">
                         <div class="panel panel-warning">
                             <div class="panel-heading">
                                 <h3 class="panel-title">#{product.productName} - #{product.auctionByAuctionAuctionId.auctiontitle}</h3>
                             </div>
                             <div class="panel-body">
-                                Auction Description : #{product.auctionByAuctionAuctionId.auctiondescription}
+                                #{msg.auctionDescField} : #{product.auctionByAuctionAuctionId.auctiondescription}
                                 <br/>
-                                Starting Price : #{product.sellStartPrice}
+                                #{msg.startPrice} : #{product.sellStartPrice}
                             </div>
                             <div style="text-align: center;">
-                                <h:commandButton value="View Details" styleClass="btn btn-warning" action="#{userProducts.processProduct}"/>
+                                <h:commandButton value="#{msg.viewDetailsField}" styleClass="btn btn-warning" action="#{userProducts.processProduct}"/>
                             </div>
 
                             <br/>
                         </div>
                     </div>
-                    </h:form>
-                </ui:repeat>
+                </h:form>
+            </ui:repeat>
             </f:view>
         </div>
     </ui:define>

@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.persistence.Query;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -26,7 +27,11 @@ public class AuctionDao extends AbstractDao<Auction> {
     }
 
     public List<Auction> getActiveAuctions() {
-        Query query = getEntityManager().createQuery("select a from Auction  a where a.active = true");
+        String loc = LocalDateTime.now().toString();
+        loc = loc.split("\\.")[0];
+        LocalDateTime localDateTime = LocalDateTime.parse(loc);
+        Query query = getEntityManager().createQuery("select a from Auction a where a.active = true and a.auctionEnd > :date ");
+        query.setParameter("date" , localDateTime);
         List<Auction> auctionList = query.getResultList();
         for (Auction auction : auctionList) {
             System.out.println("------------AllAuctions.allAuctions()-----------------");
@@ -56,5 +61,12 @@ public class AuctionDao extends AbstractDao<Auction> {
         return userBidProduct;
     }
 
+
+    public List<Auction> getAuctions() {
+
+        Query query = getEntityManager().createQuery("select a from Auction a where a.active = true");
+        List<model.entities.Auction> auctionList = query.getResultList();
+        return auctionList;
+    }
 
 }
