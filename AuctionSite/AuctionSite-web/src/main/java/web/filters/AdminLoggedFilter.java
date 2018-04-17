@@ -1,5 +1,6 @@
 package web.filters;
 
+
 import web.LoginBean;
 
 import javax.inject.Inject;
@@ -9,10 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebFilter(urlPatterns = "/faces/adminReport.xhtml")
+public class AdminLoggedFilter implements Filter {
 
-@WebFilter(filterName = "loggedFilter",
-        urlPatterns = {"/faces/userAuctions.xhtml" , "/faces/productDetails.xhtml" ,"/faces/joinedAuctions.xhtml" , "/faces/createAuction.xhtml"})
-public class LoggedFilter implements Filter {
 
     @Inject
     private LoginBean loginBean;
@@ -25,18 +25,17 @@ public class LoggedFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
         System.out.println("In Filter");
-        if(loginBean != null && loginBean.getUser() != null){
+        if(loginBean != null && loginBean.getUser() != null && loginBean.getUser().getRole().equals("admin"))
+        {
             System.out.println("Not Logged");
             filterChain.doFilter(servletRequest , servletResponse);
         }
         else {
-            httpServletResponse.sendRedirect("login.xhtml");
+            httpServletResponse.sendRedirect("home.xhtml");
         }
-
     }
 
     @Override

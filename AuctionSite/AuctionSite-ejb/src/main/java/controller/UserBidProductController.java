@@ -29,19 +29,22 @@ public class UserBidProductController {
 
     public void makeNewPid(Users users, Auction auction, Product product, Double amount) {
         UserBidProduct userBidProduct = userBidProductDao.getUserBidProductObject(users , product);
-        if(userBidProduct != null)
-        {
-            userBidProduct.setLastBid(amount);
-            userBidProductDao.update(userBidProduct);
-        }
-        else
-        {
-//            new UserBidProduct(amount, auction, product, users);
-            userBidProductDao.create(new UserBidProduct(amount, auction, product, users));
-            System.out.println("Error Check");
-        }
-        notifyPrevPiders(auction, product, amount);
 
+        if(auction.getAuctionEnd().isBefore(LocalDateTime.now()))
+        {
+
+            if(userBidProduct != null)
+            {
+                userBidProduct.setLastBid(amount);
+                userBidProductDao.update(userBidProduct);
+            }
+            else
+            {
+                userBidProductDao.create(new UserBidProduct(amount, auction, product, users));
+                System.out.println("Error Check");
+            }
+            notifyPrevPiders(auction, product, amount);
+        }
     }
 
     public void notifyPrevPiders(Auction auction, Product product, Double amount) {
@@ -52,9 +55,9 @@ public class UserBidProductController {
             if(!userID.contains(oldUserBidProduct.getUsersByUserUserId().getUserId()) && count < 5)
             {
                 count++;
-                userMessageDao.create(new UserMessage("product : "+product.getProductName()+""
-                        +"in Auction"+auction.getAuctiontitle()+
-                        "got new bid with Value"+amount,
+                userMessageDao.create(new UserMessage("product : "+product.getProductName()+"   "
+                        +"in Auction : "+auction.getAuctiontitle()+
+                        "   has gotten new bid with   Value : "+amount,
                         oldUserBidProduct.getUsersByUserUserId() , true));
                 userID.add(oldUserBidProduct.getUsersByUserUserId().getUserId());
             }

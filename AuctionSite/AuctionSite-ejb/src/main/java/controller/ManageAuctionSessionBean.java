@@ -31,6 +31,10 @@ public class ManageAuctionSessionBean {
         Auction resAuction;
         int id = Integer.parseInt(auctionid);
         resAuction = auctionDao.find(Auction.class, id);
+        for (UserBidProduct u:
+             resAuction.getUserBidProductsByAuctionId()) {
+            System.out.print("1111--->"+u.getLastBid()+" ");
+        }
         return resAuction;
     }
 
@@ -40,6 +44,11 @@ public class ManageAuctionSessionBean {
         return auctionDao.getMaxPidForProductInAuction(auction, product);
     }
 
+
+    public List<Auction> getAllAuctions() {
+        return auctionDao.getAuctions();
+
+    }
 
 }
 

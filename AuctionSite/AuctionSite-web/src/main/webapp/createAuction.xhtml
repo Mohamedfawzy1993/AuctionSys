@@ -15,35 +15,35 @@
                 <div class="container">
                     <div class="login-form-grids animated wow slideInUp">
                         <h:form prependId="false">
-                            <h:outputText value="Auction Title"/>
-                            <h:inputText id="Title" value="#{registerAuctionBean.auctiontitle}" required="true"
-                                         requiredMessage="You Must Enter Auction's Title"
+                            <h:outputText  value="#{msg.auctionTitleField}"/>
+                            <h:inputText  id="Title" value="#{registerAuctionBean.auctiontitle}" required="true"
+                                         requiredMessage="#{msg.auctionTitleValidation}"
                                          disabled="#{!registerAuctionBean.isCreatedAuction()}"/>
-                            <h:message for="Title" id="TitleError" style="color:red"></h:message>
+                            <h:message  for="Title" id="TitleError" style="color:red"></h:message>
                             <br/>
                             <br/>
-                            <h:outputText value="Auction Description"/>
-                            <h:inputText id="Description" value="#{registerAuctionBean.auctiondescription}"
+                            <h:outputText  value="#{msg.auctionDescField}"/>
+                            <h:inputText   id="Description" value="#{registerAuctionBean.auctiondescription}"
                                          required="true"
-                                         requiredMessage="You Must Enter Auction's Description"
+                                         requiredMessage="#{msg.auctionDescValidation}"
                                          disabled="#{!registerAuctionBean.isCreatedAuction()}"/>
-                            <h:message for="Description" id="DescriptionError" style="color:red"></h:message>
+                            <h:message  for="Description" id="DescriptionError" style="color:red"></h:message>
                             <br/>
                             <br/>
-                            <h:outputText value="Auction Duration"/>
-                            <h:outputText style="margin-left: 20%" value="In"/>
+                            <h:outputText  value="#{msg.auctionDuration}"/>
+                            <h:outputText  style="margin-left: 20%" value="#{msg.inField}"/>
                             <br/>
-                            <h:inputText id="Duration"
+                            <h:inputText   id="Duration"
                                          style=" width: 45%;
                                             border: 1px solid #DBDBDB;
                                             padding: 10px 10px 10px 10px;
                                             font-size: 14px;
                                             color: #999;"
                                          pt:type="number" pt:min="1" value="#{registerAuctionBean.duration}"
-                                         validatorMessage="Minimun is duration is 1"
+                                         validatorMessage="#{msg.auctionDurationValidation}"
                                          disabled="#{!registerAuctionBean.isCreatedAuction()}">
                             </h:inputText>
-                            <h:selectOneMenu value="#{registerAuctionBean.durationType}"
+                            <h:selectOneMenu  value="#{registerAuctionBean.durationType}"
                                              style=" width: 49%;
                                             border: 1px solid #DBDBDB;
                                             padding: 10px 10px 10px 10px;
@@ -51,14 +51,14 @@
                                             color: #999;
                                             background-color: #fff;
                                             margin-left: 5%;">
-                                <f:selectItems value="#{registerAuctionBean.durationTypeList}" var="c" itemValue="#{c}"
+                                <f:selectItems  value="#{registerAuctionBean.durationTypeList}" var="c" itemValue="#{c}"
                                                itemLabel="#{c}"/>
                                 <!--<f:selectItem itemValue="2" itemLabel="Item 2"/>-->
                             </h:selectOneMenu>
                             <br/>
-                            <h:message for="Duration" id="DurationError" style="color:red"></h:message>
+                            <h:message   for="Duration" id="DurationError" style="color:red"></h:message>
 
-                            <h:commandButton rendered="#{registerAuctionBean.isCreatedAuction()}" value="Add Auction"
+                            <h:commandButton  rendered="#{registerAuctionBean.isCreatedAuction()}" value="#{msg.addAuctionField}"
                                              action="#{registerAuctionBean.createAuction}"/>
 
                         </h:form>
@@ -71,30 +71,30 @@
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1">
                         <h:form>
-                            <h:dataTable class="table table-striped table-hover"
+                            <h:dataTable  class="table table-striped table-hover"
                                          value="#{registerAuctionBean.productsModel}" var="product"
                             >
                                 <h:column>
-                                    <f:facet name="header"> Product Name</f:facet>
+                                    <f:facet name="header"> #{msg.productName}</f:facet>
                                     <h:inputText styleClass="form-control" value="#{product.productName}"
                                                  style="display: inline;"
                                     />
                                 </h:column>
                                 <h:column>
-                                    <f:facet name="header">Starting Price</f:facet>
+                                    <f:facet name="header">#{msg.startPrice}</f:facet>
                                     <h:inputText styleClass="form-control " value="#{product.sellStartPrice}"
                                                  style="display: inline;"
                                     />
                                 </h:column>
                                 <h:column>
-                                    <f:facet name="header">Product Amount</f:facet>
+                                    <f:facet name="header">#{msg.productCount}</f:facet>
                                     <h:inputText styleClass="form-control " value="#{product.count}"
                                                  style="display: inline;"
                                     />
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Action</f:facet>
+                                    <f:facet name="header">     </f:facet>
                                     <h:commandButton styleClass="btn btn-danger" value="Delete"
                                                      action="#{registerAuctionBean.removeProduct()}"
                                                      style="display: inline; width: 100%"
@@ -112,18 +112,18 @@
                             <table class="table table-striped table-hover">
                                 <tr>
                                     <h:inputText id="prodname" value="#{registerAuctionBean.product.productName}"
-                                                 styleClass="form-control" pt:placeholder="Product Name" rendered="true"
+                                                 styleClass="form-control" pt:placeholder="#{msg.productName}" rendered="true"
                                                  style="width:28% ;display: inline;margin-left: 1%"/>
                                     <h:inputText id="sellprice" value="#{registerAuctionBean.product.sellStartPrice}"
                                                  rendered="true"
                                                  styleClass="form-control" pt:type="number" pt:min="1"
-                                                 pt:placeholder="Product Starting Price"
+                                                 pt:placeholder="#{msg.startPrice}"
                                                  style="width:28% ;display: inline;margin-left: 1%"/>
                                     <h:inputText id="count" value="#{registerAuctionBean.product.count}" rendered="true"
                                                  styleClass="form-control" pt:type="number" pt:min="1"
-                                                 pt:placeholder="Product Amount"
+                                                 pt:placeholder="#{msg.productCount}"
                                                  style="width:28% ;display: inline;margin-left: 2%"/>
-                                    <h:commandButton value="Add Product" styleClass="btn btn-primary"
+                                    <h:commandButton value="#{msg.addProduct}" styleClass="btn btn-primary"
                                                      action="#{registerAuctionBean.addProduct()}"
                                                      style="width:10% ;display: inline;margin-left: 1%"
 

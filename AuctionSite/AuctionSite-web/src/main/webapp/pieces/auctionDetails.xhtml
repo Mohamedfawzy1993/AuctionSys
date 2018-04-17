@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head/>
+
+<h:body>
+    <f:view>
+
+        <h:form>
+            <br/>
+            <br/>
+            <br/>
+            <h:dataTable value="#{AuctionDetails.model}" var="auctionDetail">
+                <h:column>
+                    <f:facet name="header">Product</f:facet>
+                    <h:outputText value="#{auctionDetail.productByProductProductId.productName}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">lastPid</f:facet>
+                    <h:outputText value="#{auctionDetail.lastBid}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">lastPid</f:facet>
+                    <h:inputText value="#{auctionDetail.lastBid}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Action</f:facet>
+                    <h:commandLink value="Pid" action="#{AuctionDetails.makeBid(auctionDetail)}"/>
+                </h:column>
+            </h:dataTable>
+
+        </h:form>
+    </f:view>
+    <h:form>
+        <h:dataTable id="txt_count" value="#{loginBean.model}" var="mes">
+            <h:column>
+                <f:facet name="header">Message</f:facet>
+                <h:outputText value="#{mes.message}"/>
+            </h:column>
+        </h:dataTable>
+
+        <!--<h:outputText id="txt_count" value="#{loginBean.number}"/>-->
+        <p:poll interval="5" listener="#{loginBean.updateDetailes}" update="txt_count"/>
+    </h:form>
+</h:body>
+</html>
