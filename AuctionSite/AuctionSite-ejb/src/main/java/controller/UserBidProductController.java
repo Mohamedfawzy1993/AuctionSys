@@ -30,7 +30,7 @@ public class UserBidProductController {
     public void makeNewPid(Users users, Auction auction, Product product, Double amount) {
         UserBidProduct userBidProduct = userBidProductDao.getUserBidProductObject(users , product);
 
-        if(auction.getAuctionEnd().isBefore(LocalDateTime.now()))
+        if(auction.getAuctionEnd().isAfter(LocalDateTime.now()))
         {
 
             if(userBidProduct != null)

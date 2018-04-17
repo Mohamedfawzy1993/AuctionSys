@@ -15,6 +15,8 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -179,5 +181,10 @@ public class AuctionDetails implements Serializable {
 
     public void setModelHistory(DataModel<UserBidProduct> modelHistory) {
         this.modelHistory = modelHistory;
+    }
+
+    public String formater(LocalDateTime localDateTime)
+    {
+        return localDateTime.format(DateTimeFormatter.ofPattern("EEEE MMM dd yyyy hh:mm:ss a"));
     }
 }
