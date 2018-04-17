@@ -29,8 +29,7 @@ public class LoggedFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
         System.out.println("In Filter");
-        if(loginBean != null && loginBean.getUser() != null)
-        {
+        if(loginBean != null && loginBean.getUser() != null){
             System.out.println("Not Logged");
             filterChain.doFilter(servletRequest , servletResponse);
         }

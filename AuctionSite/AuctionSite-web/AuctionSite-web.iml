@@ -22,7 +22,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.hibernate:hibernate-java8:5.0.0.Final" level="project" />
     <orderEntry type="module" module-name="AuctionSite-ejb" scope="PROVIDED" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.hibernate:hibernate-java8:5.0.0.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax:javaee-web-api:7.0" level="project" />
