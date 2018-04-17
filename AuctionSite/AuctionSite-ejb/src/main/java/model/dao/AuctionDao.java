@@ -66,6 +66,20 @@ public class AuctionDao extends AbstractDao<Auction> {
 
         Query query = getEntityManager().createQuery("select a from Auction a where a.active = true");
         List<model.entities.Auction> auctionList = query.getResultList();
+        if(auctionList != null && auctionList.size()>0)
+        {
+            for(Auction auction : auctionList )
+            {
+                for(Product product : auction.getProductsByAuctionId())
+                {
+
+                }
+                for(UserBidProduct users : auction.getUserBidProductsByAuctionId())
+                {
+                    
+                }
+            }
+        }
         return auctionList;
     }
 
