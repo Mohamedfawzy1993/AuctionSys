@@ -11,7 +11,7 @@ import java.io.IOException;
 
 
 @WebFilter(filterName = "loggedFilter",
-        urlPatterns = {"/faces/home.xhtml" , "/faces/createAuction.xhtml"})
+        urlPatterns = {"/faces/home.xhtml" , "/faces/createAuction.xhtml" ,"/faces/adminReport.xhtml"})
 public class LoggedFilter implements Filter {
 
     @Inject
@@ -29,10 +29,14 @@ public class LoggedFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
         System.out.println("In Filter");
-        if(loginBean != null && loginBean.getUser() != null)
-        {
-            System.out.println("Not Logged");
-            filterChain.doFilter(servletRequest , servletResponse);
+        if(loginBean != null && loginBean.getUser() != null){
+            
+            if(loginBean.getUser().getRole().equals("Seller")){
+                httpServletResponse.sendRedirect("/faces/adminReport.xhtml");
+            }else{
+                System.out.println("Not Logged");
+                filterChain.doFilter(servletRequest , servletResponse);
+            }
         }
         else {
             httpServletResponse.sendRedirect("login.xhtml");
